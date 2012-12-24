@@ -7,6 +7,7 @@ Tikal's Fuseday JS Session Concept - a live screencast system for remote
 1. Clone the repo
 2. cd into LiveCast
 3. run: node app.js
+4. go to [localhost:8000](http://localhost:8000)
 
 ##Static content##
 All the static (js, css & img) content is located under /public.
