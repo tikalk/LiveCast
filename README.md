@@ -11,7 +11,8 @@ Tikal's Fuseday JS Session Concept - a live screencast system for remote
 
 ##Static content##
 All the static (js, css & img) content is located under /public.
-/views/index.ejs renders to "index.html" so this is the main view for the app.
 
+
+/views/index.ejs renders to "index.html" so this is the main view for the app.
 
 >The templating engine is [ejs](http://embeddedjs.com/) (very similar to jsp scriptlets). 
