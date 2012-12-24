@@ -1,0 +1,343 @@
+/* @override http://localhost:8080/test.css */
+
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+canvas {
+	position: absolute; 
+	top: 0; 
+	left: 0;
+}
+
+.welcome {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	font-family: Helvetica, Arial, sans-serif;
+}
+.welcome .existing {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 100px;
+	
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.4, #e1e8eb),
+	    color-stop(1.0, #f4fafc)
+	);
+}
+
+.welcome .existing h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -32px;
+	margin-left: -100px;
+	font-size: 28px;
+	text-shadow: 1px 1px 2px #21272a;
+	color: #3a3c3d;
+}
+
+.welcome .existing form {	
+	position: absolute;
+	margin-top: 50%;
+	left: 50%;
+	margin-left: -120px;
+	width: 240px;
+	height: 60px;
+	background-color: #ddd;
+	border-radius: 5px;
+}
+
+.welcome .existing form div {
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	right: 1px;
+	bottom: 1px;
+	background-color: #fefefe;
+	border-radius: 5px;
+}
+
+.welcome .existing form input {
+	border: 0;
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	font-size: 24px;
+	padding: 10px;
+	background-color: transparent;
+	text-align: center;
+}
+
+.welcome .new {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.97, #21272a),
+	    color-stop(1.0, #0b0e0f)
+	);
+	/*background-image: -moz-linear-gradient(
+	    center bottom,
+	    rgb(10,120,127) 14%,
+	    rgb(36,156,166) 57%,
+	    rgb(65,188,200) 79%
+	);*/
+}
+
+.welcome .new a {
+	position: absolute;
+	top:  50%;
+	left: 50%;
+	overflow: hidden;
+	margin-top: -15px;
+	margin-left: -60px;
+	width: 120px;
+	height: 15px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.0, #dfdfdf),
+	    color-stop(0.4, #ffffff),
+	    color-stop(0.98, #ffffff),
+	    color-stop(1.0, #dfdfdf)
+	);
+	text-decoration: none;
+	padding: 10px;
+	color: #21272a;
+	border-radius: 0.4em;
+	text-align: center;
+}
+
+.toolbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	font-family: Helvetica, Arial, sans-serif;
+	z-index: 9999;
+}
+
+.toolbar .color-picker-wrapper {
+	border: 1px solid black;
+	bottom: 40px;
+	display: none;
+	height: 135px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	width: 284px;
+	z-index: 10000;
+}
+
+.newhere {
+	min-height: 100%;
+}
+
+.newhere .existing {
+	padding: 10px 0 20px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.4, #e1e8eb),
+	    color-stop(1.0, #f4fafc)
+	);
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.newhere .existing h1 {
+	padding: 20px 0;
+	font-size: 28px;
+	text-shadow: 1px 1px 2px #21272a;
+	color: #3a3c3d;
+	text-align: center;
+}
+
+.newhere .existing div {
+	background-color: #fefefe;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.97, #fefefe),
+	    color-stop(1.0, #eee)
+	);
+	width: 300px;
+	margin: 0 auto;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	padding: 15px 0 0;
+}
+
+.newhere p {
+	line-height: 1.4em;
+	margin: 0 15px 15px;
+}
+.newhere p a {
+	color: #21272a;
+}
+.newherebody {
+	background: #21272a;
+}
+.newhere .new {
+	position: relative;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.97, #21272a),
+	    color-stop(1.0, #0b0e0f)
+	);
+	/*background-image: -moz-linear-gradient(
+	    center bottom,
+	    rgb(10,120,127) 14%,
+	    rgb(36,156,166) 57%,
+	    rgb(65,188,200) 79%
+	);*/
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.newhere .new a {
+	position: absolute;
+	top:  15px;
+	left: 50%;
+	overflow: hidden;
+	margin-left: -60px;
+	width: 120px;
+	height: 15px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.0, #dfdfdf),
+	    color-stop(0.4, #ffffff),
+	    color-stop(0.98, #ffffff),
+	    color-stop(1.0, #dfdfdf)
+	);
+	text-decoration: none;
+	padding: 10px;
+	color: #21272a;
+	border-radius: 0.4em;
+	text-align: center;
+}
