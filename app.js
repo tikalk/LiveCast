@@ -1,39 +1,25 @@
-
-/**
- * Module dependencies.
- */
-
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
-
-var app = express();
+var express = require('express'),
+    path = require('path');
+var app = express.createServer();
+app.listen(8000);
+console.log('Server listening to port: '+8000);
+var webRTC = require('webrtc.io').listen(app);
 
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
-  app.use(app.router);
+  app.use(express.session({ secret: "string" }));
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + '/public/index.html');
 });
-
-var webRTC = require('webrtc.io').listen(app);
-
-app.get('/', routes.index);
-app.get('/users', user.list);
 
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
@@ -72,9 +58,3 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
     }
   }
 });
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
-
-
