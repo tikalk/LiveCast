@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Example webrtc.io</title>
+  <title>Tikal Fuse LiveCast Project</title>
   <link type="text/css" href="css/style.css" rel="stylesheet"></link>
 
   <link rel="stylesheet" href="css/bootstrap.min.css"></link>
@@ -29,17 +29,28 @@
 
 </head>
 <body>
+  <header>
+    Tikal Fuse LiveCast Project
+  </header>
   <div class="container">
-    
-<!-- The video row -->
+
+    <!-- The video row -->
     <div class="row">
+      
       <div class="span8">
         <button class="pull-right">Ask a question</button>
       </div>
-      <div id="teacher" class="span4">teacher</div>
+      
+      <div id="teacher" class="span4 shadow">
+        <div id="videos">
+          <!-- place holder for initiating a streaming -->
+          <video id="you" autoplay class="flip"></video>
+        </div>
+      </div>
+
     </div>
 
-<!-- The studio row -->
+    <!-- The studio row -->
     <div class="row">
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
@@ -50,40 +61,40 @@
           
           <div id="editor" class="tab-pane active">
 
-              <div class="btn-toolbar">
-                
-                <button class="btn">langauge</button>
-                <button class="btn">snippets</button>
-                <button class="btn">wrap</button>
+            <div class="btn-toolbar">
 
-                <div class="btn-group" id="theme-chooser">
-                  <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
-                    Theme
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#theme/default">default</a></li>
-                      <li><a href="#theme/ambiance">ambiance</a></li>
-                      <li><a href="#theme/blackboard">blackboard</a></li>
-                      <li><a href="#theme/cobalt">cobalt</a></li>
-                      <li><a href="#theme/eclipse">eclipse</a></li>
-                      <li><a href="#theme/elegant">elegant</a></li>
-                      <li><a href="#theme/erlang">erlang-dark</a></li>
-                      <li><a href="#theme/lesser">lesser-dark</a></li>
-                      <li><a href="#theme/monokai">monokai</a></li>
-                      <li><a href="#theme/neat">neat</a></li>
-                      <li><a href="#theme/night">night</a></li>
-                      <li><a href="#theme/rubyblue">rubyblue</a></li>
-                      <li><a href="#theme/solarized">solarized dark</a></li>
-                      <li><a href="#theme/solarized">solarized light</a></li>
-                      <li><a href="#theme/twilight">twilight</a></li>
-                      <li><a href="#theme/vibrant">vibrant-ink</a></li>
-                      <li><a href="#theme/xq">xq-dark</a></li>
-                  </ul>
-                </div>
+              <button class="btn">langauge</button>
+              <button class="btn">snippets</button>
+              <button class="btn">wrap</button>
+
+              <div class="btn-group" id="theme-chooser">
+                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                  Theme
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#theme/default">default</a></li>
+                  <li><a href="#theme/ambiance">ambiance</a></li>
+                  <li><a href="#theme/blackboard">blackboard</a></li>
+                  <li><a href="#theme/cobalt">cobalt</a></li>
+                  <li><a href="#theme/eclipse">eclipse</a></li>
+                  <li><a href="#theme/elegant">elegant</a></li>
+                  <li><a href="#theme/erlang">erlang-dark</a></li>
+                  <li><a shadowhref="#theme/lesser">lesser-dark</a></li>
+                  <li><a href="#theme/monokai">monokai</a></li>
+                  <li><a href="#theme/neat">neat</a></li>
+                  <li><a href="#theme/night">night</a></li>
+                  <li><a href="#theme/rubyblue">rubyblue</a></li>
+                  <li><a href="#theme/solarized">solarized dark</a></li>
+                  <li><a href="#theme/solarized">solarized light</a></li>
+                  <li><a href="#theme/twilight">twilight</a></li>
+                  <li><a href="#theme/vibrant">vibrant-ink</a></li>
+                  <li><a href="#theme/xq">xq-dark</a></li>
+                </ul>
               </div>
+            </div>
 
-              <div id="editor-area"></div>
+            <div id="editor-area"></div>
 
           </div>
 
@@ -92,29 +103,29 @@
           </div>
         </div>
       </div> 
-      <div id="students" class="span4">
-        students
+      <div id="students" class="span4 shadow">
+        <ul>
+          <li><a href="javascript:alert(1);"><img src=""></img><span>nickname</span></a></li>
+          <li><a href="javascript:alert(1);"><img src=""></img><span>nickname</span></a></li>
+        </ul>
       </div>
     </div>
-  
-<!-- The chat row -->
-    <div id="chat">
-      chat
+
+    <!-- The chat row -->
+    <p>
+      <div id="chat" class="row shadow">
+        <div id="messages">
+          messages
+        </div>
+        <div id="inputline">
+          <input id="inputlineEl" class="span11"> <button id="submit" class="btn">Submit</button>
+        </div>
+      </div>
     </div>
 
-  </div>
-
-
-
-
-  <div>
-    <div id="videos" class="hide">
-      
-      <!-- place holder for initiating a streaming -->
-      <video id="you" autoplay class="flip"></video>
-
-    </div>
-  </div>
+    <footer>
+    Tikal Knowledge
+    </footer>
 
     <!-- JAVASCRIPT REQUIRED FILES --> 
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -123,6 +134,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/webrtc.io.js"></script>
     <!-- main file for project namespace -->
+    <script src="js/student_list.js"></script>
     <script src="js/script.js"></script>
     <script src="js/LiveCast.js"></script>
 
@@ -130,4 +142,4 @@
     <script type="text/javascript" src="js/editor.js"></script>
     <script type="text/javascript" src="js/ThemeChooser.js"></script>
   </body>
-</html>
+  </html>
