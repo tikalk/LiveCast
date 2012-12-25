@@ -11,13 +11,13 @@
 
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    
+
     var style = colorPicker.selectedColor || "#ff0080";
     var old_x;
     var old_y;
     var mouse_is_down = false;
     var line_width = 5;
-    
+
     canvas.addEventListener("mousemove", cursorMove, false);
     canvas.addEventListener("mousedown", cursorDown, false);
     document.addEventListener("mouseup", cursorUp, false);
@@ -37,6 +37,7 @@
     function drawLine(x1, y1, x2, y2, style, line_width) {
         ctx.strokeStyle = style;
         ctx.lineWidth = line_width;
+        ctx.lineCap = "round";
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -80,7 +81,7 @@
         if (!mouse_is_down) return;
 
         style = colorPicker.app.selectedColor || style;
-        
+
         var mouse_pos = getMousePos(canvas, e)
 
         if (TOOL == "Line") {
