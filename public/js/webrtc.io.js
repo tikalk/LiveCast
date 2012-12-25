@@ -148,7 +148,7 @@ var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || nav
   };
 
   rtc.createPeerConnection = function(id) {
-    console.log('createPeerConnection');
+    // console.log('createPeerConnection');
     var pc = rtc.peerConnections[id] = new PeerConnection(rtc.SERVER);
     pc.onicecandidate = function(event) {
       if (event.candidate) {

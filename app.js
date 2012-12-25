@@ -58,3 +58,26 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
     }
   }
 });
+
+/* canvas */
+
+webRTC.rtc.on("canvas_line", function(obj, socket) {
+	console.log("-> canvas_line")
+
+	var room = webRTC.rtc.rooms[obj.room] || []
+
+	for (var i = 0; i < room.length; ++i) {
+		var socketId = room[i]
+		if (socketId === socket.id) continue
+
+		var target = webRTC.rtc.getSocket(socketId)
+		if (target) {
+			console.log("<- receive_canvas_line")
+
+			target.send(JSON.stringify({
+				eventName: "receive_canvas_line",
+				data: obj
+			}), function(err) { if (err) console.log(err) })
+		}
+	}
+})
