@@ -8,6 +8,16 @@
 	box-shadow: 5px 5px 5px grey;
 }
 
+#login_div {
+	padding-top: 100px;
+	border: 2px solid blue;
+	padding-bottom: 50px;
+}
+
+#login_div #my_nick {
+	border: 2px solid blue;
+}
+
 #teacher {
 	height: 90px;
 	outline: 1px solid grey;
