@@ -2,6 +2,12 @@ var videos = [];
 var rooms = [1,2,3,4,5];
 var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || window.webkitRTCPeerConnection;
 
+$(document).ready(function(){
+  //StudentsList.add("nicky",3343,{"role" : "teacher"});
+
+
+});
+
 function getNumPerRow() {
   var len = videos.length;
   var biggest;
@@ -23,7 +29,7 @@ function subdivideVideos() {
   var numInRow = 0;
   for (var i = 0, len = videos.length; i < len; i++) {
     var video = videos[i];
-    setWH(video, i);
+    //setWH(video, i);
     numInRow = (numInRow + 1) % perRow;
   }
 }
