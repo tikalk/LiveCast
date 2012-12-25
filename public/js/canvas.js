@@ -29,9 +29,10 @@
 
     var ROOM = 1, TOOL = "Line";
 
-    document.getElementById("line_width").addEventListener("change", function() {
+    $("line_width").addEventListener("change", function() {
         line_width = this.value;
     }, false);
+
     /* Line */
 
     function drawLine(x1, y1, x2, y2, style, line_width) {
