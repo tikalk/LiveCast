@@ -5,6 +5,7 @@ app.listen(8000);
 console.log('Server listening to port: '+8000);
 var webRTC = require('webrtc.io').listen(app);
 
+var nicknames = {};
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8000);
@@ -21,7 +22,9 @@ app.get('/', function(req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
 
-var nicknames = {};
+app.get('/users', function(req, res){
+    res.send(JSON.stringify(nicknames));
+});
 
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
