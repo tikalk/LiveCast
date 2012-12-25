@@ -68,6 +68,7 @@ webRTC.rtc.on('disconnect', function(rtc) {
 
 webRTC.rtc.on('login', function(data, socket){
     var role;
+    console.log("Login event:"+data.nickname)
     if (users.length == 0){
         role = 'teacher';
 
@@ -109,7 +110,7 @@ webRTC.rtc.on('login', function(data, socket){
 
         // Giving the user the last code editor data
         if (lastCodeEditorData != null){
-           SocketHelpers.emitEventToPeer(socket.id, "code_changed", data);
+           SocketHelpers.emitEventToPeer(socket.id, "code_changed", lastCodeEditorData);
         }
     }
 
@@ -149,7 +150,7 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
 });
 
 // Handing the teacher event of code editor changes.
-webRTC.rtc.on('code_editor', function(data,soc){
+webRTC.rtc.on('code_editor', function(data,socket){
     lastCodeEditorData = data;
     SocketHelpers.doForCurrentRoomPeers(function(socketId){
         if (socket.id != socketId){

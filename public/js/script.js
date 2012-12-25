@@ -17,20 +17,23 @@ $(document).ready(function(){
 
   rtc.on("on_login", function(data){
     //role=teacher|student , allUsers {socketid:nickname}
+    console.log("on_login");
     $(data.allUsers).each(function(index, user){
-      StudentsList.add(user.nickname,user.socketId,user.role);
-
+      
       if(PeerConnection){
         rtc.createStream({"video": true, "audio": true}, function(stream) {
-          var id = 'you';
+          var id = ''; //fsdfsfsfsfsd
           if(user.role != "teacher"){
+            StudentsList.add(user.nickname,user.socketId,user.role);
             id = 'vid_' + user.socketId;            
+          }else{
+            id="teacher-video"
           }
           var vid = $("#" + id);
           vid.src = URL.createObjectURL(stream);
           videos.push(vid);
           rtc.attachStream(stream, id);
-          subdivideVideos();
+          //subdivideVideos();
         });
       }else {
         alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
@@ -39,6 +42,10 @@ $(document).ready(function(){
     });
   });
 
+  rtc.on('user_added', function  (data) {
+     console.log('User added');
+     console.log(data);
+  })
 });
 
 function getNumPerRow() {
@@ -173,12 +180,12 @@ function initChat() {
 
 function init() {
   if(PeerConnection){
-    rtc.createStream({"video": true, "audio": true}, function(stream) {
-      document.getElementById('you').src = URL.createObjectURL(stream);
-      videos.push(document.getElementById('you'));
-      rtc.attachStream(stream, 'you');
-      subdivideVideos();
-    });
+    // rtc.createStream({"video": true, "audio": true}, function(stream) {
+    //   document.getElementById('you').src = URL.createObjectURL(stream);
+    //   videos.push(document.getElementById('you'));
+    //   rtc.attachStream(stream, 'you');
+      // subdivideVideos();
+    //});
   }else {
     alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
   }

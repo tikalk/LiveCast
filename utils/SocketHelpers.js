@@ -29,6 +29,7 @@ exports.doForCurrentRoomPeers = function (fn){
 
     for (var i = 0; i < roomList.length; i++) {
         var socketId = roomList[i].id;
+        console.log("Emiting to "+socketId);
         fn(socketId);
     }
 };
