@@ -37,25 +37,17 @@
         // Apply gradient to canvas
         app.colorctx.fillStyle = gradient;
         app.colorctx.fillRect(0, 0, app.colorctx.canvas.width, app.colorctx.canvas.height);
-        
-        // app.colors.mousedown(function(e) {
-        //     // Track mouse movement on the canvas if the mouse button is down
-        //     $(document).mousemove(function(e) {
-        //         app.colorEventX = e.pageX - ms.colors.offset().left;
-        //         app.colorEventY = e.pageY - ms.colors.offset().top;
-        //     });
-            
-        //     // Get the color at the current mouse coordinates
-        //     app.colorTimer = setInterval(app.getColor, 50);
-        // })
-        
-        // // On mouseup, clear the interval and unbind the mousemove event,
-        // // it should only happen if the button is down
-        // .mouseup(function(e) {
-        //     clearInterval(ms.colorTimer);
-        //     $(document).unbind('mousemove');
-        // });
-};
+    };
+    
+    var picked_color = document.createElement("canvas");
+    picked_color.width = 20;
+    picked_color.height = 20;
+    
+    var pc_ctx = picked_color.getContext("2d");
+    document.getElementById("picked_color").appendChild(picked_color);
+
+    pc_ctx.fillStyle = app.selectedColor || "#ff0080";
+    pc_ctx.fillRect(0, 0, 20, 20);
     
     app.getColor = function(e) {
         var newColor;
@@ -63,12 +55,13 @@
         var imageData = app.colorctx.getImageData(currentPos.x, currentPos.y, 1, 1);
 
         app.selectedColor = 'rgb(' + imageData.data[0] + ', ' + imageData.data[1] + ', ' + imageData.data[2] + ')';
-        console.log(app.selectedColor);
+        pc_ctx.fillStyle = app.selectedColor;
+        pc_ctx.fillRect(0, 0, 20, 20);
     };
 
     app.buildColorPalette();
     app.colors.addEventListener("click", app.getColor, false);
-
+    
     this.colorPicker = {
         app:app,
         selectedColor: app.selectedColor

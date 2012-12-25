@@ -11,6 +11,7 @@
 
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
+    
     var style = colorPicker.selectedColor || "#ff0080";
     var old_x;
     var old_y;
