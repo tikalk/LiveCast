@@ -88,7 +88,8 @@ webRTC.rtc.on('login', function(data, socket){
 
 
 webRTC.rtc.on('chat_msg', function(data, socket) {
-    SocketHelpers.doForCurrentRoomPeers(function(socketId){
+    console.log("Message: " + data.messages);
+    SocketHelpers.doForCurrentRoomPeers(data, function(socketId){
         if (socketId !== socket.id) {
             SocketHelpers.emitEventToPeer(socketId, "receive_chat_msg", {
                 "messages": data.messages,
@@ -101,7 +102,7 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
 webRTC.rtc.on('raise_hand', function(data, socket){
 
     // Iterating thru the rooms has no meaning at this point. It is done only to avoid doing it later, if more than one room support is actually added.
-    SocketHelpers.doForCurrentRoomPeers(function(socketId){
+    SocketHelpers.doForCurrentRoomPeers(function(data, socketId){
         SocketHelpers.emitEventToPeer(socketId, "hand_raised", {"socketId": socket.id} );
     });
 });

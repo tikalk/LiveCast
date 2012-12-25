@@ -23,14 +23,15 @@ exports.emitEventToPeer =  function (socketId, eventName, data){
     }
 };
 
-exports.doForCurrentRoomPeers = function (fn){
-    var roomList = webRTC.rtc.rooms[data.room] || [];
+exports.doForCurrentRoomPeers = function (data, fn){
+//    var roomList = webRTC.rtc.rooms[data.room] || [];
+    var roomList = webRTC.rtc.sockets;
 
     for (var i = 0; i < roomList.length; i++) {
-        var socketId = roomList[i];
+        var socketId = roomList[i].id;
         fn(socketId);
     }
-}
+};
 exports.setWebRTC = function(rtc){
   webRTC = rtc;
 };
