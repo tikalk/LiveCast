@@ -34,9 +34,9 @@ webRTC.rtc.on('connect', function(rtc) {
 
 });
 
-webRTC.rtc.on('send answer', function(rtc) {
-  console.log('answer sent');
-});
+//webRTC.rtc.on('send answer', function(rtc) {
+//  console.log('answer sent');
+//});
 
 webRTC.rtc.on('disconnect', function(rtc) {
   //Client disconnect 
@@ -77,8 +77,10 @@ webRTC.rtc.on('login', function(data, socket){
             'nickname' : data.nickname
         }
 
+        var listenSocket = webRTC.rtc.getSocket(socket.id);
+
         // Handling teacher event of giving the right of speech to a specific student.
-        socket.on('give_ros', function(data, soc){
+        listenSocket.on('give_ros', function(data, soc){
             console.log("The teacher gives the right of speech to " + nicknames[data.socketId]);
             rosSocketId = data.socketId;
             SocketHelpers.doForCurrentRoomPeers(function(socketId){
@@ -87,7 +89,7 @@ webRTC.rtc.on('login', function(data, socket){
         });
 
         // Handling the teacher event of taking the right of speech back from the currently privileged user
-        socket.on('take_ros', function(data, soc){
+        listenSocket.on('take_ros', function(data, soc){
             console.log("The teacher takes the right of speech back from " + nicknames[rosSocketId]);
             if (rosSocketId != null){
                 SocketHelpers.doForCurrentRoomPeers(function(socketId){
@@ -97,15 +99,7 @@ webRTC.rtc.on('login', function(data, socket){
             }
         });
 
-        // Handing the teacher event of code editor changes.
-        socket.on('code_editor', function(data,soc){
-            lastCodeEditorData = data;
-            SocketHelpers.doForCurrentRoomPeers(function(socketId){
-               if (socket.id != socketId){
-                   SocketHelpers.emitEventToPeer(socketId, "code_changed", data);
-               }
-            });
-        });
+
     } else {
         role = 'student';
 
@@ -150,6 +144,16 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
                 "messages": data.messages,
                 "color": data.color
               });
+        }
+    });
+});
+
+// Handing the teacher event of code editor changes.
+webRTC.rtc.on('code_editor', function(data,soc){
+    lastCodeEditorData = data;
+    SocketHelpers.doForCurrentRoomPeers(function(socketId){
+        if (socket.id != socketId){
+            SocketHelpers.emitEventToPeer(socketId, "code_changed", data);
         }
     });
 });
