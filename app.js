@@ -12,7 +12,7 @@ var usersNum = 0;
 var nicknames = {};
 var lastCodeEditorData = "";
 var roomAdmin;
-var answeringUserId;
+var rosSocketId;
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8000);
@@ -28,12 +28,6 @@ app.configure(function(){
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
-
-app.get('/users', function(req, res){
-    res.send(JSON.stringify(nicknames));
-});
-
-
 
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
@@ -61,10 +55,8 @@ webRTC.rtc.on('disconnect', function(rtc) {
       usersNum--;
       break;
     }
-    
   }
 });
-
 
 webRTC.rtc.on('login', function(data, socket){
     var role;
@@ -79,7 +71,8 @@ webRTC.rtc.on('login', function(data, socket){
 
         // Handling teacher event of giving the right of speech to a specific student.
         socket.on('give_ros', function(data, soc){
-            answeringUserId = data.socketId;
+            console.log("The teacher gives the right of speech to " + nicknames[data.socketId]);
+            rosSocketId = data.socketId;
             SocketHelpers.doForCurrentRoomPeers(function(socketId){
                 SocketHelpers.emitEventToPeer(socketId, "ros_given", {"socketId": socketId} );
             });
@@ -87,11 +80,12 @@ webRTC.rtc.on('login', function(data, socket){
 
         // Handling the teacher event of taking the right of speech back from the currently privileged user
         socket.on('take_ros', function(data, soc){
-            if (answeringUserId != null){
+            console.log("The teacher takes the right of speech back from " + nicknames[rosSocketId]);
+            if (rosSocketId != null){
                 SocketHelpers.doForCurrentRoomPeers(function(socketId){
-                    SocketHelpers.emitEventToPeer(socketId, "ros_taken", {"socketId": answeringUserId} );
+                    SocketHelpers.emitEventToPeer(socketId, "ros_taken", {"socketId": rosSocketId} );
                 });
-                answeringUserId = null;
+                rosSocketId = null;
             }
         });
 
@@ -120,7 +114,7 @@ webRTC.rtc.on('login', function(data, socket){
     usersNum++;
 
     // Notifying the new user of its metadata.
-    SocketHelpers.emitEventToPeer(socket.id, "on_login", {'role': role});
+    SocketHelpers.emitEventToPeer(socket.id, "on_login", {'role': role, 'allUsers': nicknames});
 
     // Notifying all users of the new user's login
     SocketHelpers.doForCurrentRoomPeers(function(socketId){
@@ -146,8 +140,7 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
 });
 
 webRTC.rtc.on('raise_hand', function(data, socket){
-
-    // Iterating thru the rooms has no meaning at this point. It is done only to avoid doing it later, if more than one room support is actually added.
+    console.log("User " + nicknames[socket.id] + " raised his hand");
     SocketHelpers.doForCurrentRoomPeers(function(socketId){
         SocketHelpers.emitEventToPeer(socketId, "hand_raised", {"socketId": socket.id} );
     });
