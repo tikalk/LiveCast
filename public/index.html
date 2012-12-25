@@ -32,11 +32,18 @@
   <header>
     Tikal Fuse LiveCast Project
   </header>
-  <div class="container">
+  <div id="login_div" class="container">
+    <div class="input-append">
+      <input class="span2" id="my_nick" type="text">
+      <button class="btn" id="login_me" type="button">Go!</button>
+    </div>
+    
+  </div>
+  <div id="session_div" style="display:none" class="container">
 
     <!-- The video row -->
     <div class="row">
-      
+
       <div class="span8">
         <button class="pull-right">Ask a question</button>
       </div>
@@ -48,17 +55,13 @@
         </div>
       </div>
 
-    </div>
-
-    <!-- The studio row -->
-    <div class="row">
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
           <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
         </ul>
         <div class="tab-content">
-          
+
           <div id="editor" class="tab-pane active">
 
             <div class="btn-toolbar">
@@ -124,7 +127,7 @@
     </div>
 
     <footer>
-    Tikal Knowledge
+      Tikal Knowledge
     </footer>
 
     <!-- JAVASCRIPT REQUIRED FILES --> 
