@@ -61,6 +61,9 @@ footer {
 
 
 /*Video*/
+video{
+  height: 200px;
+}
 #videos{
   text-align: center;
   list-style: none;

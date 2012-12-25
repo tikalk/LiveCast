@@ -18,7 +18,21 @@ $(document).ready(function(){
   rtc.on("on_login", function(data){
     //role=teacher|student , allUsers {socketid:nickname}
     $(data.allUsers).each(function(index, user){
-      StudentsList.add(user.nickname,user.socketid,user.role);
+      StudentsList.add(user.nickname,user.socketId,user.role);
+
+      if(PeerConnection){
+        rtc.createStream({"video": true, "audio": true}, function(stream) {
+          var id = 'vid_' + user.socketId;
+          var vid = $("#" + id);
+          vid.src = URL.createObjectURL(stream);
+          videos.push(vid);
+          rtc.attachStream(stream, id);
+          subdivideVideos();
+        });
+      }else {
+        alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
+      }
+
     });
   });
 
