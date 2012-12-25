@@ -32,13 +32,18 @@
 }
 
 #chat {
-  border: 1px solid gray;
+	margin: 3px;
 }
 #chat #messages {
-
+	outline: 1px solid gray;
+	margin: 5px;
+	min-height: 7em;
+	max-height: 30em;
+	overflow-y: auto;
 }
 #chat #inputlineEl {
   background: cyan;
+  margin: 5px;
 }
 
 header {
