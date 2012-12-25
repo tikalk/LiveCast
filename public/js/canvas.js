@@ -1,46 +1,93 @@
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
 (function() {
-	function $(id) { return document.getElementById(id) }
+    
+    function $(id) { return document.getElementById(id); }
 
-	var ROOM = 1
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
 
-	function initialize() {
-		console.log("Initialize")
+    var old_x;
+    var old_y;
+    var mouse_is_down = false;
+    
+    console.log("canvas init");
+    canvas.addEventListener("mousemove", cursorMove, false);
+    canvas.addEventListener("mousedown", cursorDown, false);
+    document.addEventListener("mouseup", cursorUp, false);
+    canvas.width = 500;
+    canvas.height = 600;
 
-		rtc.createStream({ video: true, audio: true }, function(stream) {
-			$("you").src = URL.createObjectURL(stream)
-			rtc.attachStream(stream, "you")
-		})
+    $("canvasElement").appendChild(canvas);
 
-		rtc.connect("ws://" + location.host, ROOM)
+    var ROOM = 1;
 
-		rtc.on("add remote stream", function(stream, socket) {
-			console.log("Add remote stream")
-		})
+    function drawLine(x1, y1, x2, y2, style) {
+        ctx.strokeStyle = style;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
 
-		rtc.on("disconnect stream", function(stream, socket) {
-			console.log("Disconnect stream")
-		})
+    function cursorMove(e) {
+        if (!mouse_is_down) return;
+        var mouse_pos = getMousePos(canvas, e);
+        drawLine(old_x, old_y, mouse_pos.x, mouse_pos.y, "green");
+        old_x = mouse_pos.x;
+        old_y = mouse_pos.y;
+    }
 
-		rtc.on("receive_canvas_line", function(obj) {
-			console.log("Receive canvas line", obj)
-		})
+    function cursorDown(e) {
+        mouse_is_down = true;
+        var mouse_pos = getMousePos(canvas, e);
+        old_x = mouse_pos.x;
+        old_y = mouse_pos.y;
+    }
 
-		$("test_button").addEventListener("click", function(event) {
-			console.log("Test button click")
+    function cursorUp(e) {
+        mouse_is_down = false;
+    }
 
-			rtc._socket.send(JSON.stringify({
-				eventName: "canvas_line",
-				data: {
-					color: "#ff0080",
-					start_point: [0, 0],
-					end_point: [250, 0],
-					room: ROOM
-				}
-			}), function(err) { if (err) console.log(err) })
-		}, false)
-	}
-
-	this.canvasMod = {
-		initialize: initialize
-	}
-})()
+    function initialize() {
+	console.log("Initialize")
+        
+	rtc.connect("ws://" + location.host, ROOM)
+        
+	rtc.on("add remote stream", function(stream, socket) {
+	    console.log("Add remote stream")
+	})
+        
+	rtc.on("disconnect stream", function(stream, socket) {
+	    console.log("Disconnect stream")
+	})
+        
+	rtc.on("receive_canvas_line", function(obj) {
+	    console.log("Receive canvas line", obj)
+	})
+        
+	$("test_button").addEventListener("click", function(event) {
+	    console.log("Test button click")
+            
+	    rtc._socket.send(JSON.stringify({
+		eventName: "canvas_line",
+		data: {
+		    color: "#ff0080",
+		    start_point: [0, 0],
+		    end_point: [250, 0],
+		    room: ROOM
+		}
+	    }), function(err) { if (err) console.log(err) })
+	}, false)
+    }
+    
+    this.canvasMod = {
+	initialize: initialize
+    };
+})();
