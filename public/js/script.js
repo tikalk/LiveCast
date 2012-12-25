@@ -170,13 +170,17 @@ function init() {
     console.log('remove ' + data);
     removeVideo(data);
   });
+
+  rtc.on('on_login', function(data){
+    Backbone.trigger('user-connected', data);
+  });
   // initFullScreen();
   // initNewRoom();
   // initChat();
 }
 
-window.onresize = function(event) {
-  subdivideVideos();
-};
+// window.onresize = function(event) {
+//   subdivideVideos();
+// };
 
 $(init);

@@ -23,7 +23,7 @@ exports.emitEventToPeer =  function (socketId, eventName, data){
     }
 };
 
-exports.doForCurrentRoomPeers = function (data, fn){
+exports.doForCurrentRoomPeers = function (fn){
 //    var roomList = webRTC.rtc.rooms[data.room] || [];
     var roomList = webRTC.rtc.sockets;
 
