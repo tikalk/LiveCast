@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="css/codemirror/theme/neat.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/night.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/rubyblue.css"></link>
-  <link rel="stylesheet" href="css/codemirror/theme/solarized-dark.css"></link>
-  <link rel="stylesheet" href="css/codemirror/theme/solarized-light.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/twilight.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/vibrant-ink.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/xq-dark.css"></link>
@@ -45,12 +43,12 @@
     <div class="row">
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
-          <li><a href="#editor" data-toggle="tab">Editor</a></li>
+          <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
           <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
         </ul>
         <div class="tab-content">
           
-          <div id="editor" class="tab-pane">
+          <div id="editor" class="tab-pane active">
 
               <div class="btn-toolbar">
                 
@@ -109,10 +107,12 @@
 
 
 
-  <div style="display:none">
-    <div id="videos">
-    
+  <div>
+    <div id="videos" class="hide">
       
+      <!-- place holder for initiating a streaming -->
+      <video id="you" autoplay class="flip"></video>
+
     </div>
   </div>
 
@@ -124,6 +124,7 @@
     <script src="js/webrtc.io.js"></script>
     <!-- main file for project namespace -->
     <script src="js/script.js"></script>
+    <script src="js/LiveCast.js"></script>
 
     <!-- JAVASCRIPT MODULES -->
     <script type="text/javascript" src="js/editor.js"></script>
