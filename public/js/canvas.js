@@ -16,7 +16,8 @@
     var old_x;
     var old_y;
     var mouse_is_down = false;
-
+    var line_width = 5;
+    
     canvas.addEventListener("mousemove", cursorMove, false);
     canvas.addEventListener("mousedown", cursorDown, false);
     document.addEventListener("mouseup", cursorUp, false);
@@ -28,21 +29,26 @@
 
     var ROOM = 1, TOOL = "Line";
 
+    document.getElementById("line_width").addEventListener("change", function() {
+        line_width = this.value;
+    }, false);
     /* Line */
 
-    function drawLine(x1, y1, x2, y2, style) {
+    function drawLine(x1, y1, x2, y2, style, line_width) {
         ctx.strokeStyle = style;
+        ctx.lineWidth = line_width;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.stroke();
     }
 
-    function sendLine(x1, y1, x2, y2, style) {
+    function sendLine(x1, y1, x2, y2, style, line_width) {
         rtc._socket.send(JSON.stringify({
             eventName: "canvas_line",
             data: {
                 color: style,
+                line_width: line_width,
                 start_point: [x1, y1],
                 end_point: [x2, y2],
                 room: ROOM
@@ -78,7 +84,7 @@
         var mouse_pos = getMousePos(canvas, e)
 
         if (TOOL == "Line") {
-            var args = [old_x, old_y, mouse_pos.x, mouse_pos.y, style]
+            var args = [old_x, old_y, mouse_pos.x, mouse_pos.y, style, line_width]
 
             drawLine.apply(this, args)
             sendLine.apply(this, args)
@@ -125,7 +131,7 @@
 
         rtc.on("receive_canvas_line", function(obj) {
             // console.log("Receive canvas line", obj)
-            drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
+            drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color, obj.line_width)
         })
 
         rtc.on("receive_canvas_erase", function(obj) {
