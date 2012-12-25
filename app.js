@@ -31,7 +31,6 @@ app.get('/', function(req, res) {
 
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
-
 });
 
 webRTC.rtc.on('send answer', function(rtc) {
@@ -58,6 +57,7 @@ webRTC.rtc.on('disconnect', function(rtc) {
   }
 });
 
+// Handling the login event for all users
 webRTC.rtc.on('login', function(data, socket){
     var role;
     if (usersNum == 0){
@@ -145,5 +145,3 @@ webRTC.rtc.on('raise_hand', function(data, socket){
         SocketHelpers.emitEventToPeer(socketId, "hand_raised", {"socketId": socket.id} );
     });
 });
-
-
