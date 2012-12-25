@@ -17,9 +17,8 @@ $(document).ready(function(){
 
   rtc.on("on_login", function(data){
     //role=teacher|student , allUsers {socketid:nickname}
-    $(data.allUsers).each(function(user,index){
-      alert(user + " " + index);
-      //StudentsList.add("nicky",3343,{"role" : "teacher"});
+    $(data.allUsers).each(function(index, user){
+      StudentsList.add(user.nickname,user.socketid,user.role);
     });
   });
 
