@@ -3,9 +3,15 @@ var rooms = [1,2,3,4,5];
 var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || window.webkitRTCPeerConnection;
 
 $(document).ready(function(){
+
   //StudentsList.add("nicky",3343,{"role" : "teacher"});
   $("#videos li a").on("click", function(event){
     event.target.webkitRequestFullScreen();
+  
+  $("#login_me").click( function() {
+    $("#login_div").hide();
+    $("#session_div").show();
+    nickname = $("#my_nick").value();
   });
 
 });
