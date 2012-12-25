@@ -23,7 +23,7 @@
     canvas.width = 500;
     canvas.height = 600;
 
-    $("canvasElement").appendChild(canvas);
+    $("canvas_wrapper").appendChild(canvas);
 
     var ROOM = 1;
 
@@ -59,6 +59,7 @@
 
         rtc.connect("ws://" + location.host, ROOM)
 
+        /*
         rtc.on("add remote stream", function(stream, socket) {
             console.log("Add remote stream")
         })
@@ -66,6 +67,7 @@
         rtc.on("disconnect stream", function(stream, socket) {
             console.log("Disconnect stream")
         })
+        */
 
         rtc.on("receive_canvas_line", function(obj) {
             console.log("Receive canvas line", obj)
