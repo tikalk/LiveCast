@@ -12,7 +12,7 @@ $(document).ready(function(){
   $("#login_me").click( function() {
     $("#login_div").hide();
     $("#session_div").show();
-    nickname = $("#my_nick").value();
+    nickname = $("#my_nick").val();
   });
 
 });
