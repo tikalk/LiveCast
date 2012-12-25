@@ -56,25 +56,25 @@
 
     function initialize() {
         console.log("Initialize")
-            
+
         rtc.connect("ws://" + location.host, ROOM)
-            
+
         rtc.on("add remote stream", function(stream, socket) {
             console.log("Add remote stream")
         })
-            
+
         rtc.on("disconnect stream", function(stream, socket) {
             console.log("Disconnect stream")
         })
-            
+
         rtc.on("receive_canvas_line", function(obj) {
             console.log("Receive canvas line", obj)
             drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
         })
-            
+
         $("test_button").addEventListener("click", function(event) {
             console.log("Test button click")
-                
+
             rtc._socket.send(JSON.stringify({
                 eventName: "canvas_line",
                 data: {
