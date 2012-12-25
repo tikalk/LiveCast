@@ -134,7 +134,7 @@ $(document).ready(function(){
     };
 
     $(drawingCanvas).bind('touchstart', function(e) {
-        var t = e.touches.map(function(touch) {
+        var t = e.originalEvent.touches(function(touch) {
             app.magic.touchCache[touch.identifier] = { x: touch.pageX, y: touch.pageY };
             app.magic.drawLine(touch.pageX - 1, touch.pageY -1, touch.pageX, touch.pageY);
             return app.magic.eventToProtocol(touch);
@@ -146,15 +146,18 @@ $(document).ready(function(){
     $(drawingCanvas).bind('mousedown', function(e) {
         app.mouseIsDown = true;
         // Mouse down location
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
+        var mouseX = e.pageX - this.offsetLeft,
+            mouseY = e.pageY - this.offsetTop;
 
-        app.addClick(mouseX, mouseY, app.selectedColor, false);
-        app.magic.draw(app.clickX, app.clickY, app.clickColor, app.clickDrag);
+        var t = function () {
+            app.addClick(mouseX, mouseY, app.selectedColor, false);
+            app.magic.draw(app.clickX, app.clickY, app.clickColor, app.clickDrag);
+            return app.magic.mouseEventToProtocol(mouseX, mouseY, app.selectedColor, false);
+        };
     });
 
     $(drawingCanvas).bind('touchmove', function(e) {
-        var t = e.touches.map(function(touch) {
+        var t = e.originalEvent.touches(function(touch) {
             var lastEvent = app.magic.touchCache[touch.identifier];
             
             app.magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
@@ -175,7 +178,7 @@ $(document).ready(function(){
     });
 
     $(drawingCanvas).bind('touchend', function(e) {
-        var t = e.touches.map(function(touch) {
+        var t = e.originalEvent.touches(function(touch) {
             var lastEvent = app.magic.touchCache[touch.identifier];
                 app.magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
             delete app.magic.touchCache[touch.identifier];
