@@ -4,12 +4,20 @@
   <meta charset="utf-8">
   <title>Canvas</title>
   <style>
+  body {
+      margin: 5px;
+  }
   canvas {
       border: 1px solid #333;
+      margin: 5px 0;
   }
   </style>
 </head>
 <body>
+  <input type="radio" name="tool" value="Line" id="line_tool" checked>
+  <label for="line_tool">Line</label>
+  <input type="radio" name="tool" value="Erase" id="erase_tool">
+  <label for="erase_tool">Erase</label>
   <div id="canvas_wrapper"></div>
   <script src="/js/webrtc.io.js"></script>
   <script src="/js/canvas.js"></script>

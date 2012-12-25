@@ -25,7 +25,7 @@
 
     $("canvas_wrapper").appendChild(canvas);
 
-    var ROOM = 1;
+    var ROOM = 1, TOOL = "Line";
 
     function drawLine(x1, y1, x2, y2, style) {
         ctx.strokeStyle = style;
@@ -50,11 +50,14 @@
     function cursorMove(e) {
         if (!mouse_is_down) return;
 
-        var mouse_pos = getMousePos(canvas, e),
-            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "#ff0080"];
+        var mouse_pos = getMousePos(canvas, e)
 
-        drawLine.apply(this, args);
-        sendLine.apply(this, args);
+        if (TOOL == "Line") {
+            var args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "#ff0080"]
+
+            drawLine.apply(this, args)
+            sendLine.apply(this, args)
+        }
 
         old_x = mouse_pos.x;
         old_y = mouse_pos.y;
@@ -71,6 +74,11 @@
         mouse_is_down = false;
     }
 
+    function changeTool(event) {
+        if (event.srcElement.checked) TOOL = event.srcElement.value
+        console.log("Change tool:", TOOL)
+    }
+
     function initialize() {
         console.log("Initialize")
 
@@ -80,6 +88,10 @@
             // console.log("Receive canvas line", obj)
             drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
         })
+
+        for (var radio in {line_tool:0, erase_tool:0}) {
+            $(radio).addEventListener("change", changeTool, false)
+        }
     }
 
     this.canvasMod = {
