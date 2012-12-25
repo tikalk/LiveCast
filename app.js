@@ -1,9 +1,12 @@
 var express = require('express'),
-    path = require('path');
+    path = require('path'),
+    SocketHelpers = require('./utils/SocketHelpers');
+
 var app = express.createServer();
 app.listen(8000);
 console.log('Server listening to port: '+8000);
 var webRTC = require('webrtc.io').listen(app);
+SocketHelpers.setWebRTC(webRTC);
 
 var usersNum = 0;
 var nicknames = {};
@@ -28,30 +31,7 @@ app.get('/users', function(req, res){
     res.send(JSON.stringify(nicknames));
 });
 
-// Socket messaging helper functions
-function emitPeerEvent(socketId, eventName, data){
-    var soc = webRTC.rtc.getSocket(socketId);
 
-    if (soc) {
-        soc.send(JSON.stringify({
-            "eventName": eventName,
-            "data": data
-        }), function(error) {
-            if (error) {
-                console.log(error);
-            }
-        });
-    }
-}
-
-function doForCurrentRoom(fn){
-    var roomList = webRTC.rtc.rooms[data.room] || [];
-
-    for (var i = 0; i < roomList.length; i++) {
-        var socketId = roomList[i];
-        fn(socketId);
-    }
-}
 
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
@@ -108,9 +88,9 @@ webRTC.rtc.on('login', function(data, socket){
 
 
 webRTC.rtc.on('chat_msg', function(data, socket) {
-    doForCurrentRoom(function(socketId){
+    SocketHelpers.doForCurrentRoomPeers(function(socketId){
         if (socketId !== socket.id) {
-            emitPeerEvent(socketId, "receive_chat_msg", {
+            SocketHelpers.emitEventToPeer(socketId, "receive_chat_msg", {
                 "messages": data.messages,
                 "color": data.color
               });
@@ -121,8 +101,8 @@ webRTC.rtc.on('chat_msg', function(data, socket) {
 webRTC.rtc.on('raise_hand', function(data, socket){
 
     // Iterating thru the rooms has no meaning at this point. It is done only to avoid doing it later, if more than one room support is actually added.
-    doForCurrentRoom(function(socketId){
-        emitPeerEvent(socketId, "hand_raised", {"socketId": socket.id} );
+    SocketHelpers.doForCurrentRoomPeers(function(socketId){
+        SocketHelpers.emitEventToPeer(socketId, "hand_raised", {"socketId": socket.id} );
     });
 });
 
