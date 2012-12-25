@@ -4,7 +4,6 @@ var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || w
 
 $(document).ready(function(){
 
-  //StudentsList.add("nicky",3343,{"role" : "teacher"});
   $("#videos li a").on("click", function(event){
     event.target.webkitRequestFullScreen();
   });
@@ -12,7 +11,16 @@ $(document).ready(function(){
   $("#login_me").click( function() {
     $("#login_div").hide();
     $("#session_div").show();
-    nickname = $("#my_nick").val();
+    var nickname = $("#my_nick").val();
+    LiveCast.send("login", { "nickname": nickname }, function(){alert("LiveCast.send");} );
+  });
+
+  rtc.on("on_login", function(data){
+    //role=teacher|student , allUsers {socketid:nickname}
+    $(data.allUsers).each(function(user,index){
+      alert(user + " " + index);
+      //StudentsList.add("nicky",3343,{"role" : "teacher"});
+    });
   });
 
 });

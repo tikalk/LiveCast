@@ -33,27 +33,21 @@
     Tikal Fuse LiveCast Project
   </header>
   <div id="login_div" class="container row shadow" style="text-align:center;">
-      Enter your nickname, bro:<br>
-      <input class="span2 shadow" id="my_nick" type="text"><br>
-      <button class="btn btn-primary" id="login_me" type="button">Go!</button>
-    </div>
-    
+    Enter your nickname, bro:<br>
+    <input class="span2 shadow" id="my_nick" type="text"><br>
+    <button class="btn btn-primary" id="login_me" type="button">Go!</button>
   </div>
-  <div id="session_div" style="display:none" class="container">
+  
+</div>
+<div id="session_div" style="display:none" class="container">
 
-    <!-- The video row -->
-    <div class="row">
-
+  <!-- The video row -->
+  <div class="row">
+    <div id="main_pane">
       <div class="span8">
         <button class="pull-right">Ask a question</button>
       </div>
       
-      <div id="teacher" class="span4 shadow">
-        <!--div id="videos">
-          <video id="you" autoplay class="flip"></video>
-        </div-->
-      </div>
-
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
@@ -105,42 +99,51 @@
           </div>
         </div>
       </div> 
+    </div>
+    <div id="right_pane">
+      <div id="teacher" class="span4 shadow">
+        <!--div id="videos">
+          <video id="you" autoplay class="flip"></video>
+        </div-->
+      </div>
+
       <div id="students" class="span4 shadow">
         <ul id="videos">
           <li><a><video id="you" autoplay class="flip"></video><span>Teacher</span></a></li>
         </ul>
       </div>
     </div>
+  </div>
 
-    <!-- The chat row -->
-    <p>
-      <div id="chat" class="row shadow">
-        <div id="messages">
-          messages
-        </div>
-        <div id="inputline">
-          <input id="inputlineEl" class="span11"> <button id="submit" class="btn">Submit</button>
-        </div>
+  <!-- The chat row -->
+  <p>
+    <div id="chat" class="row shadow">
+      <div id="messages">
+        messages
+      </div>
+      <div id="inputline">
+        <input id="inputlineEl" class="span11"> <button id="submit" class="btn">Submit</button>
       </div>
     </div>
+  </div>
 
-    <footer>
-      Tikal Knowledge
-    </footer>
+  <footer>
+    Tikal Knowledge
+  </footer>
 
-    <!-- JAVASCRIPT REQUIRED FILES --> 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/lib/underscore.js"></script>
-    <script type="text/javascript" src="js/lib/backbone.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- main file for project namespace -->
-    <script src="js/student_list.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/webrtc.io.js"></script>
-    <script src="js/LiveCast.js"></script>
+  <!-- JAVASCRIPT REQUIRED FILES --> 
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/lib/underscore.js"></script>
+  <script type="text/javascript" src="js/lib/backbone.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- main file for project namespace -->
+  <script src="js/student_list.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/webrtc.io.js"></script>
+  <script src="js/LiveCast.js"></script>
 
-    <!-- JAVASCRIPT MODULES -->
-    <script type="text/javascript" src="js/editor.js"></script>
-    <script type="text/javascript" src="js/ThemeChooser.js"></script>
-  </body>
-  </html>
+  <!-- JAVASCRIPT MODULES -->
+  <script type="text/javascript" src="js/editor.js"></script>
+  <script type="text/javascript" src="js/ThemeChooser.js"></script>
+</body>
+</html>
