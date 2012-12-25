@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Example webrtc.io</title>
+  <title>Tikal Fuse LiveCast Project</title>
   <link type="text/css" href="css/style.css" rel="stylesheet"></link>
 
   <link rel="stylesheet" href="css/bootstrap.min.css"></link>
@@ -29,19 +29,25 @@
 
 </head>
 <body>
+  <header>
+    Tikal Fuse LiveCast Project
+  </header>
   <div class="container">
 
     <!-- The video row -->
     <div class="row">
+      
       <div class="span8">
         <button class="pull-right">Ask a question</button>
       </div>
-      <div id="teacher" class="span4">
+      
+      <div id="teacher" class="span4 shadow">
         <div id="videos">
           <!-- place holder for initiating a streaming -->
           <video id="you" autoplay class="flip"></video>
         </div>
       </div>
+
     </div>
 
     <!-- The studio row -->
@@ -74,7 +80,7 @@
                   <li><a href="#theme/eclipse">eclipse</a></li>
                   <li><a href="#theme/elegant">elegant</a></li>
                   <li><a href="#theme/erlang">erlang-dark</a></li>
-                  <li><a href="#theme/lesser">lesser-dark</a></li>
+                  <li><a shadowhref="#theme/lesser">lesser-dark</a></li>
                   <li><a href="#theme/monokai">monokai</a></li>
                   <li><a href="#theme/neat">neat</a></li>
                   <li><a href="#theme/night">night</a></li>
@@ -97,7 +103,7 @@
           </div>
         </div>
       </div> 
-      <div id="students" class="span4">
+      <div id="students" class="span4 shadow">
         <ul>
           <li><a href="javascript:alert(1);"><img src=""></img><span>nickname</span></a></li>
           <li><a href="javascript:alert(1);"><img src=""></img><span>nickname</span></a></li>
@@ -107,7 +113,7 @@
 
     <!-- The chat row -->
     <p>
-      <div id="chat" class="row">
+      <div id="chat" class="row shadow">
         <div id="messages">
           messages
         </div>
@@ -116,6 +122,10 @@
         </div>
       </div>
     </div>
+
+    <footer>
+    Tikal Knowledge
+    </footer>
 
     <!-- JAVASCRIPT REQUIRED FILES --> 
     <script type="text/javascript" src="js/jquery.js"></script>

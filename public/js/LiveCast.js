@@ -14,7 +14,7 @@ LiveCast.send = function(eventName, data, callback) {
 // events to communicate with server nodejs
 LiveCast.SendEvents = {
   CHAT: 'chat_msg',
-  CODE: 'code_editor',
+  CODE: 'code_send',
   QUESTION: 'raise_hand',
   LOGIN: 'login',
   DISCONNECT: 'logout'
@@ -23,6 +23,7 @@ LiveCast.SendEvents = {
 LiveCast.RecieveEvents = {
   QUESTION: 'hand_raised',
   CHAT: 'chat_msg',
+  CODE_CHANGED: 'code_changed',
   CONNECTED: 'on_login',
   DISCONNECTED: 'on_logout'
 };
