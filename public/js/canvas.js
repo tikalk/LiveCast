@@ -107,6 +107,8 @@
 
         old_x = mouse_pos.x;
         old_y = mouse_pos.y;
+
+        e.preventDefault(); // fixes bug with mouse pointer changing to text
     }
 
     function cursorUp(e) {
