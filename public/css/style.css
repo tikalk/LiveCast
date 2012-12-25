@@ -26,6 +26,8 @@
 #students {
 	padding-top: 5px;
 	outline-left: 1px solid blue;
+	overflow-y: scroll;
+	max-height: 200px; 
 }
 
 #chat {
