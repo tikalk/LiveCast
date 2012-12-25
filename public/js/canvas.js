@@ -11,7 +11,7 @@
 
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-
+    var style = colorPicker.selectedColor || "#ff0080";
     var old_x;
     var old_y;
     var mouse_is_down = false;
@@ -49,9 +49,10 @@
 
     function cursorMove(e) {
         if (!mouse_is_down) return;
-
+        style = colorPicker.app.selectedColor || style;
+        
         var mouse_pos = getMousePos(canvas, e),
-            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "#ff0080"];
+            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, style];
 
         drawLine.apply(this, args);
         sendLine.apply(this, args);
@@ -83,6 +84,7 @@
     }
 
     this.canvasMod = {
-        initialize: initialize
+        initialize: initialize,
+        getMousePos: getMousePos
     };
 })();
