@@ -27,6 +27,8 @@
 
     var ROOM = 1, TOOL = "Line";
 
+    /* Line */
+
     function drawLine(x1, y1, x2, y2, style) {
         ctx.strokeStyle = style;
         ctx.beginPath();
@@ -47,6 +49,26 @@
         }), function(err) { if (err) console.log(err) })
     }
 
+    /* Erase */
+
+    function drawErase(x, y) {
+        ctx.fillStyle = "#fff";
+        ctx.arc(x, y, 20, 0, Math.PI + Math.PI, false);
+        ctx.fill();
+    }
+
+    function sendErase(x, y) {
+        rtc._socket.send(JSON.stringify({
+            eventName: "canvas_erase",
+            data: {
+                point: [x, y],
+                room: ROOM
+            }
+        }), function(err) { if (err) console.log(err) })
+    }
+
+    /* Cursor */
+
     function cursorMove(e) {
         if (!mouse_is_down) return;
 
@@ -58,6 +80,12 @@
             drawLine.apply(this, args)
             sendLine.apply(this, args)
         }
+        else if (TOOL == "Erase") {
+            var args = [mouse_pos.x, mouse_pos.y]
+
+            drawErase.apply(this, args)
+            sendErase.apply(this, args)
+        }
 
         old_x = mouse_pos.x;
         old_y = mouse_pos.y;
@@ -66,6 +94,14 @@
     function cursorDown(e) {
         mouse_is_down = true;
         var mouse_pos = getMousePos(canvas, e);
+
+        if (TOOL == "Erase") {
+            var args = [mouse_pos.x, mouse_pos.y]
+
+            drawErase.apply(this, args)
+            sendErase.apply(this, args)
+        }
+
         old_x = mouse_pos.x;
         old_y = mouse_pos.y;
     }
@@ -87,6 +123,11 @@
         rtc.on("receive_canvas_line", function(obj) {
             // console.log("Receive canvas line", obj)
             drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
+        })
+
+        rtc.on("receive_canvas_erase", function(obj) {
+            // console.log("Receive canvas erase", obj)
+            drawErase(obj.point[0], obj.point[1])
         })
 
         for (var radio in {line_tool:0, erase_tool:0}) {
