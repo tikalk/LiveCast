@@ -3,7 +3,7 @@ var rooms = [1,2,3,4,5];
 var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || window.webkitRTCPeerConnection;
 
 $(document).ready(function(){
-
+  //StudentsList.add("nicky",3343,{"role" : "teacher"});
 
 
 });
