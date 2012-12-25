@@ -20,8 +20,8 @@
     canvas.addEventListener("mousedown", cursorDown, false);
     document.addEventListener("mouseup", cursorUp, false);
 
-    canvas.width = 500;
-    canvas.height = 600;
+    canvas.width = 800;
+    canvas.height = 400;
 
     $("canvas_wrapper").appendChild(canvas);
 
@@ -35,10 +35,27 @@
         ctx.stroke();
     }
 
+    function sendLine(x1, y1, x2, y2, style) {
+        rtc._socket.send(JSON.stringify({
+            eventName: "canvas_line",
+            data: {
+                color: style,
+                start_point: [x1, y1],
+                end_point: [x2, y2],
+                room: ROOM
+            }
+        }), function(err) { if (err) console.log(err) })
+    }
+
     function cursorMove(e) {
         if (!mouse_is_down) return;
-        var mouse_pos = getMousePos(canvas, e);
-        drawLine(old_x, old_y, mouse_pos.x, mouse_pos.y, "green");
+
+        var mouse_pos = getMousePos(canvas, e),
+            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "green"];
+
+        drawLine.apply(this, args);
+        sendLine.apply(this, args);
+
         old_x = mouse_pos.x;
         old_y = mouse_pos.y;
     }
@@ -73,20 +90,6 @@
             console.log("Receive canvas line", obj)
             drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
         })
-
-        $("test_button").addEventListener("click", function(event) {
-            console.log("Test button click")
-
-            rtc._socket.send(JSON.stringify({
-                eventName: "canvas_line",
-                data: {
-                    color: "#ff0080",
-                    start_point: [0, 0],
-                    end_point: [250, 0],
-                    room: ROOM
-                }
-            }), function(err) { if (err) console.log(err) })
-        }, false)
     }
 
     this.canvasMod = {
