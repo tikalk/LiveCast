@@ -21,8 +21,11 @@ app.get('/', function(req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
 
+var nicknames = {};
+
 webRTC.rtc.on('connect', function(rtc) {
   console.log('Client connected');
+
 });
 
 webRTC.rtc.on('send answer', function(rtc) {
@@ -31,6 +34,29 @@ webRTC.rtc.on('send answer', function(rtc) {
 
 webRTC.rtc.on('disconnect', function(rtc) {
   //Client disconnect 
+  console.log('disconnect '+rtc.sockets);
+  for (var i in nicknames){
+    var isFound = false;
+    for(var j=0; j<rtc.sockets.length;j++){
+      if(i == rtc.sockets[j].id){
+        isFound = true;
+        break;
+      }  
+    }
+    if (! isFound){
+      console.log("Disconnected Nickname: "+nicknames[i]);
+      delete nicknames[nicknames[i]];
+      break;
+    }
+    
+  }
+});
+
+
+webRTC.rtc.on('login', function(data, socket){
+  console.log('Login: '+socket.id);
+  console.log("Nickname: "+data.nickname);
+  nicknames[socket.id] = data.nickname;
 });
 
 webRTC.rtc.on('chat_msg', function(data, socket) {
