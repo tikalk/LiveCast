@@ -1,7 +1,7 @@
 var StudentsList = {
 	users : {},
 	add : function(nickname, socketid, meta){
-		var element = $("#students ul").append('<li><a href="#"><img src=""></img><span>' + nickname + "</span></a></li>");
+		var element = $("#students ul").append('<li><a><video id="vid_' + socketid + '" autoplay></video><span>' + nickname + '</span></a></li>');
 		this.users[socketid] = {"nickname" : nickname , "element" : element, "meta" : meta } ;
 	},
 	remove : function(socketid){

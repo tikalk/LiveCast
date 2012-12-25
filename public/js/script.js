@@ -4,7 +4,9 @@ var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || w
 
 $(document).ready(function(){
   //StudentsList.add("nicky",3343,{"role" : "teacher"});
-
+  $("#videos li a").on("click", function(event){
+    event.target.webkitRequestFullScreen();
+  });
 
 });
 
@@ -30,6 +32,7 @@ function subdivideVideos() {
   for (var i = 0, len = videos.length; i < len; i++) {
     var video = videos[i];
     //setWH(video, i);
+    video.height = 200;
     numInRow = (numInRow + 1) % perRow;
   }
 }

@@ -64,7 +64,7 @@ var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || nav
       rtc._socket.send(JSON.stringify({
         "eventName": "login",
         "data":{
-          "nickname": "Rambo "+(new Date()).toString()
+          "nickname": nickname
         }
       }), function(error){
           if(error){console.log(error);}
