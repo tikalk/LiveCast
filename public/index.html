@@ -1,0 +1,75 @@
+<html>
+<head>
+  <title>Example webrtc.io</title>
+  <link type="text/css" href="css/style.css" rel="stylesheet"></link>
+
+</head>
+<body>
+  <div class="container">
+    
+<!-- The video row -->
+    <div class="row">
+      <div class="span8">
+        <button class="pull-right">Ask a question</button>
+      </div>
+      <div id="teacher" class="span4">teacher</div>
+    </div>
+
+<!-- The studio row -->
+    <div class="row">
+      <div id="studio" class="tabbable span8">
+        <ul class="nav nav-tabs">
+          <li><a href="#editor" data-toggle="tab">Editor</a></li>
+          <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="editor" class="tab-pane">
+            editor
+          </div>
+          <div id="canvas" class="tab-pane">
+            canvas
+          </div>
+        </div>
+      </div> 
+      <div id="students" class="span4">
+        students
+      </div>
+    </div>
+  
+<!-- The chat row -->
+    <div id="chat">
+      chat
+    </div>
+
+  </div>
+
+
+
+
+  <div style="display:none">
+    <div id="videos">
+      <a href="https://github.com/webRTC"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+      <video id="you" class="flip" autoplay style="border-color:green"></video>
+    </div>
+    <div id="chatbox">
+      <button id="fullscreen">Enter Full Screen</button>
+      <button id="newRoom">Create A New Room</button>
+      <div id="messages">
+      </div>
+      <br>
+      <input id="chatinput" type="text"/>
+    </div>
+
+    
+  </div>
+
+
+
+  <!-- Script Includes -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/webrtc.io.js"></script>
+  <script src="js/script.js"></script>
+
+  </body>
+</html>
