@@ -55,6 +55,6 @@ app.buildColorPalette = function() {
 
 app.getColor = function(e) {
   imageData = app.colorctx.getImageData(app.colorEventX, app.colorEventY, 1, 1);
-  var newColor = 'rgb(' + imageData.data[1] + ', ' + imageData.data[2] + ', ' + imageData.data[3] + ')';
+  var newColor = 'rgb(' + imageData.data[3] + ', ' + imageData.data[2] + ', ' + imageData.data[1] + ')';
   app.magic.colorPicked(newColor);
 };

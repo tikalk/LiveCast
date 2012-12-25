@@ -32,6 +32,7 @@ $(document).ready(function(){
     app.clickX = [];
     app.clickY = [];
     app.clickDrag = [];
+    app.clickColor = [];
 
   var doc = $(document),
 	drawingCanvas = document.createElement('canvas'),
@@ -86,11 +87,12 @@ $(document).ready(function(){
             this.context.stroke();
             this.context.fill();
         },
-        draw: function (clickX, clickY, clickDrag) {
+        draw: function (clickX, clickY, clickColor, clickDrag) {
             app.magic.clear();
 
-            app.magic.drawResetStart();
             for (var i = 0; i < app.clickX.length; i++) {
+                context.strokeStyle =clickColor[i];
+                context.fillStyle = clickColor[i];
                 context.beginPath();
                 if (app.clickDrag[i] && i) {
                     context.moveTo(app.clickX[i - 1], app.clickY[i - 1]);
@@ -124,9 +126,10 @@ $(document).ready(function(){
 	
 	app.magic.setup();
 
-    app.addClick = function (x, y, dragging) {
+    app.addClick = function (x, y, color, dragging) {
         app.clickX.push(x);
         app.clickY.push(y);
+        app.clickColor.push(color);
         app.clickDrag.push(dragging);
     };
 
@@ -146,9 +149,8 @@ $(document).ready(function(){
         var mouseX = e.pageX - this.offsetLeft;
         var mouseY = e.pageY - this.offsetTop;
 
-        app.addClick(mouseX, mouseY, false);
-        //app.magic.drawLine(mouseX - 1, mouseY - 1, mouseX, mouseY);
-        app.magic.draw(app.clickX, app.clickY, app.clickDrag);
+        app.addClick(mouseX, mouseY, app.selectedColor, false);
+        app.magic.draw(app.clickX, app.clickY, app.clickColor, app.clickDrag);
     });
 
     $(drawingCanvas).bind('touchmove', function(e) {
@@ -166,9 +168,9 @@ $(document).ready(function(){
 
     $(drawingCanvas).bind('mousemove', function(e) {
         if (app.mouseIsDown) {
-            app.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            app.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, app.selectedColor ,true);
             //app.magic.drawLine(app.clickX[app.clickX.length], app.clickY[app.clickY.length], e.pageX, e.pageY);
-            app.magic.draw(app.clickX, app.clickY, app.clickDrag);
+            app.magic.draw(app.clickX, app.clickY, app.clickColor, app.clickDrag);
         }
     });
 
@@ -185,7 +187,7 @@ $(document).ready(function(){
 
     $(drawingCanvas).bind('mouseup', function(e) {
         app.mouseIsDown = false;
-        app.magic.draw(app.clickX, app.clickY, app.clickDrag);
+        app.magic.draw(app.clickX, app.clickY, app.clickColor, app.clickDrag);
     });
 
 	$('.clear').bind('click', function(e){
