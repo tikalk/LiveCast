@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="css/codemirror/theme/neat.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/night.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/rubyblue.css"></link>
-  <link rel="stylesheet" href="css/codemirror/theme/solarized-dark.css"></link>
-  <link rel="stylesheet" href="css/codemirror/theme/solarized-light.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/twilight.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/vibrant-ink.css"></link>
   <link rel="stylesheet" href="css/codemirror/theme/xq-dark.css"></link>
@@ -38,22 +36,30 @@
 
     <!-- The video row -->
     <div class="row">
+      
       <div class="span8">
         <button class="pull-right">Ask a question</button>
       </div>
-      <div id="teacher" class="span4 shadow">teacher</div>
+      
+      <div id="teacher" class="span4 shadow">
+        <div id="videos">
+          <!-- place holder for initiating a streaming -->
+          <video id="you" autoplay class="flip"></video>
+        </div>
+      </div>
+
     </div>
 
     <!-- The studio row -->
     <div class="row">
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
-          <li><a href="#editor" data-toggle="tab">Editor</a></li>
+          <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
           <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
         </ul>
         <div class="tab-content">
-
-          <div id="editor" class="tab-pane">
+          
+          <div id="editor" class="tab-pane active">
 
             <div class="btn-toolbar">
 
@@ -117,12 +123,6 @@
       </div>
     </div>
 
-    <div style="display:none">
-      <div id="videos">
-
-
-      </div>
-    </div>
     <footer>
     Tikal Knowledge
     </footer>
@@ -136,6 +136,7 @@
     <!-- main file for project namespace -->
     <script src="js/student_list.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/LiveCast.js"></script>
 
     <!-- JAVASCRIPT MODULES -->
     <script type="text/javascript" src="js/editor.js"></script>
