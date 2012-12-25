@@ -1,5 +1,6 @@
+var app = app || {};
+
 (function() {
-    var app = app || {};
 
     var canvas, ctx, old_x, old_y, style,
         mouse_is_down = false, ROOM = 1, TOOL = "Line";
@@ -180,7 +181,7 @@
         }
     }
 
-    this.canvasMod = {
+    canvasMod = {
         buildCanvas: buildCanvas,
         initialize: initialize,
         getMousePos: getMousePos

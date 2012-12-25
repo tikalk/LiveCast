@@ -2,9 +2,8 @@ var videos = [];
 var rooms = [1,2,3,4,5];
 var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || window.webkitRTCPeerConnection;
 
-$(document).ready(function(){
-  this.canvasMod.buildCanvas();
-
+$(document).ready(function() {
+  canvasMod.buildCanvas('canvas');
 
 });
 
@@ -148,7 +147,6 @@ function getNumPerRow() {
         alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
       }
 
-      
       var room = window.location.hash.slice(1);
 
       //When using localhost
