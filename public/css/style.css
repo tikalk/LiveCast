@@ -1,57 +1,32 @@
 @import url('bootstrap.min.css');
 
-.container-fluid div {
+.container div {
   outline: 1px solid gray;
 }
-html, body {
-  height: 100%;
+
+#students ul{
+  list-style: none;
+}
+#students ul li img{
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+
+}
+#students ul li span{
+  padding: 0 10px;
 }
 
-html {
-  overflow-y: scroll;
+#chat {
+	border: 1px solid gray;
+}
+#chat #messages {
+
+}
+#chat #inputlineEl {
+	background: cyan;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-}
-
-#videos {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  background-color: #F0F6FB;
-}
-
-#chatbox {
-  position: absolute;
-  height: 180px;
-  right: 20px;
-  left: 20px;
-  bottom: 0px;
-}
-
-#chatinput {
-  width: 100%;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  border-radius: 8px;
-  border-style:solid;
-  border-width:1px;
-}
-
-#messages {
-  overflow: scroll;
-  height: 100px;
-  width: 100%;
-  background-color: white;
-  border-radius: 8px;
-  border-style:solid;
-  border-width:1px;
-}
-
-.flip {
--webkit-transform: rotateY(180deg);
+.flip{
+  -webkit-transform: rotateY(180deg);
 }
