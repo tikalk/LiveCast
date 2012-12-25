@@ -8,11 +8,11 @@ console.log('Server listening to port: '+8000);
 var webRTC = require('webrtc.io').listen(app);
 SocketHelpers.setWebRTC(webRTC);
 
-var usersNum = 0;
-var nicknames = {};
-var lastCodeEditorData = "";
-var roomAdmin;
-var rosSocketId;
+var nicknames = {},
+    users = [],
+    lastCodeEditorData = "",
+    roomAdmin,
+    rosSocketId;
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8000);
@@ -52,7 +52,15 @@ webRTC.rtc.on('disconnect', function(rtc) {
     if (! isFound && socketId != roomAdmin.socketId){
       console.log("Disconnected Nickname: "+nicknames[socketId]);
       delete nicknames[nicknames[socketId]];
-      usersNum--;
+
+      // Deleting the user from the users collection
+      for (var i = 0; i < users.length; i++){
+          var currUser = users[i];
+          if (currUser.socketId == socketId){
+              users.splice(i, 1);
+              break;
+          }
+      }
       break;
     }
   }
@@ -60,7 +68,7 @@ webRTC.rtc.on('disconnect', function(rtc) {
 
 webRTC.rtc.on('login', function(data, socket){
     var role;
-    if (usersNum == 0){
+    if (users.length == 0){
         role = 'teacher';
 
         // Setting admin role
@@ -111,10 +119,17 @@ webRTC.rtc.on('login', function(data, socket){
         }
     }
 
-    usersNum++;
+//    usersNum++;
+
+    // Storing user metadata
+    users.push({
+        'socketId' : socket.id,
+        'nickname' : data.nickname,
+        'role' : role
+    });
 
     // Notifying the new user of its metadata.
-    SocketHelpers.emitEventToPeer(socket.id, "on_login", {'role': role, 'allUsers': nicknames});
+    SocketHelpers.emitEventToPeer(socket.id, "on_login", {'role': role, 'allUsers': users});
 
     // Notifying all users of the new user's login
     SocketHelpers.doForCurrentRoomPeers(function(socketId){
