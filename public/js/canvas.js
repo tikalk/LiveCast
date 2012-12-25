@@ -61,6 +61,7 @@
 
     function drawErase(x, y) {
         ctx.fillStyle = "#fff";
+        ctx.moveTo(x, y);
         ctx.arc(x, y, 20, 0, Math.PI + Math.PI, false);
         ctx.fill();
     }
