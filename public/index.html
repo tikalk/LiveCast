@@ -1,194 +1,133 @@
 <html>
-  <head>
-    <title>Example webrtc.io</title>
-    <link type="text/css" href="css/style.css" rel="stylesheet"></link>
+<head>
+  <title>Example webrtc.io</title>
+  <link type="text/css" href="css/style.css" rel="stylesheet"></link>
 
-    <script src="js/webrtc.io.js"></script>
-  </head>
-  <body onload="init()">
-    <div id="videos">
-      <a href="https://github.com/webRTC"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-      <video id="you" class="flip" autoplay style="border-color:green"></video>
-    </div>
-    <div id="chatbox">
-      <button id="fullscreen">Enter Full Screen</button>
-      <button id="newRoom">Create A New Room</button>
-      <div id="messages">
+  <link rel="stylesheet" href="css/bootstrap.min.css"></link>
+
+  <!-- CODE MIRROR COMPONENT -->
+  <script src="js/lib/codemirror.js"></script>
+  
+  <!-- code styles -->
+  <link rel="stylesheet" href="css/codemirror/codemirror.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/ambiance.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/blackboard.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/cobalt.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/eclipse.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/elegant.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/erlang-dark.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/lesser-dark.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/monokai.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/neat.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/night.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/rubyblue.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/twilight.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/vibrant-ink.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/xq-dark.css"></link>
+
+  <script src="js/lib/mode/javascript/javascript.js"></script>
+
+</head>
+<body>
+  <div class="container">
+    
+<!-- The video row -->
+    <div class="row">
+      <div class="span8">
+        <button class="pull-right">Ask a question</button>
       </div>
-      <br>
-      <input id="chatinput" type="text"/>
+      <div id="teacher" class="span4">teacher</div>
     </div>
-    <script>
-      var videos = [];
-      var rooms = [1,2,3,4,5];
-      var PeerConnection = window.PeerConnection || window.webkitPeerConnection00 || window.webkitRTCPeerConnection;
 
-      function getNumPerRow() {
-        var len = videos.length;
-        var biggest;
+<!-- The studio row -->
+    <div class="row">
+      <div id="studio" class="tabbable span8">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
+          <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
+        </ul>
+        <div class="tab-content">
+          
+          <div id="editor" class="tab-pane active">
 
-        // Ensure length is even for better division.
-        if (len % 2 === 1) {
-          len++;
-        }
+              <div class="btn-toolbar">
+                
+                <button class="btn">langauge</button>
+                <button class="btn">snippets</button>
+                <button class="btn">wrap</button>
 
-        biggest = Math.ceil(Math.sqrt(len));
-        while (len % biggest !== 0) {
-          biggest++;
-        }
-        return biggest;
-      }
+                <div class="btn-group" id="theme-chooser">
+                  <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                    Theme
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#theme/default">default</a></li>
+                      <li><a href="#theme/ambiance">ambiance</a></li>
+                      <li><a href="#theme/blackboard">blackboard</a></li>
+                      <li><a href="#theme/cobalt">cobalt</a></li>
+                      <li><a href="#theme/eclipse">eclipse</a></li>
+                      <li><a href="#theme/elegant">elegant</a></li>
+                      <li><a href="#theme/erlang">erlang-dark</a></li>
+                      <li><a href="#theme/lesser">lesser-dark</a></li>
+                      <li><a href="#theme/monokai">monokai</a></li>
+                      <li><a href="#theme/neat">neat</a></li>
+                      <li><a href="#theme/night">night</a></li>
+                      <li><a href="#theme/rubyblue">rubyblue</a></li>
+                      <li><a href="#theme/solarized">solarized dark</a></li>
+                      <li><a href="#theme/solarized">solarized light</a></li>
+                      <li><a href="#theme/twilight">twilight</a></li>
+                      <li><a href="#theme/vibrant">vibrant-ink</a></li>
+                      <li><a href="#theme/xq">xq-dark</a></li>
+                  </ul>
+                </div>
+              </div>
 
-      function subdivideVideos() {
-        var perRow = getNumPerRow();
-        var numInRow = 0;
-        for (var i = 0, len = videos.length; i < len; i++) {
-          var video = videos[i];
-          setWH(video, i);
-          numInRow = (numInRow + 1) % perRow;
-        }
-      }
+              <div id="editor-area"></div>
 
-      function setWH(video, i) {
-        var perRow = getNumPerRow();
-        var perColumn = Math.ceil(videos.length / perRow);
-        var width = Math.floor((window.innerWidth) / perRow);
-        var height = Math.floor((window.innerHeight - 190) / perColumn);
-        video.width = width;
-        video.height = height;
-        video.style.position = "absolute";
-        video.style.left = (i % perRow) * width + "px";
-        video.style.top = Math.floor(i / perRow) * height + "px";
-      }
+          </div>
 
-      function cloneVideo(domId, socketId) {
-        var video = document.getElementById(domId);
-        var clone = video.cloneNode(false);
-        clone.id = "remote" + socketId;
-        document.getElementById('videos').appendChild(clone);
-        videos.push(clone);
-        return clone;
-      }
-      function removeVideo(socketId) {
-        var video = document.getElementById('remote' + socketId);
-        if (video) {
-            videos.splice(videos.indexOf(video), 1);
-            video.parentNode.removeChild(video);
-        }
-      }
+          <div id="canvas" class="tab-pane">
+            canvas
+          </div>
+        </div>
+      </div> 
+      <div id="students" class="span4">
+        students
+      </div>
+    </div>
+  
+<!-- The chat row -->
+    <div id="chat">
+      chat
+    </div>
 
-      function addToChat(msg, color) {
-        var messages = document.getElementById('messages');
-        msg = sanitize(msg);
-        if (color) {
-          msg = '<span style="color: ' + color + '; padding-left: 15px">' + msg + '</span>';
-        } else {
-          msg = '<strong style="padding-left: 15px">' + msg + '</strong>';
-        }
-        messages.innerHTML = messages.innerHTML + msg + '<br>';
-        messages.scrollTop = 10000;
-      }
-
-      function sanitize(msg) {
-        return msg.replace(/</g, '&lt;');
-      }
-
-      function initFullScreen() { 
-        var button = document.getElementById("fullscreen");
-        button.addEventListener('click', function(event) {
-          var elem = document.getElementById("videos"); 
-          //show full screen 
-          elem.webkitRequestFullScreen();
-        });
-      } 
-
-      function initNewRoom() {
-        var button = document.getElementById("newRoom");
-
-        button.addEventListener('click', function(event) {
-
-            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-            var string_length = 8;
-            var randomstring = '';
-            for (var i=0; i<string_length; i++) {
-              var rnum = Math.floor(Math.random() * chars.length);
-              randomstring += chars.substring(rnum,rnum+1);
-            }
-            
-            window.location.hash = randomstring;
-            location.reload();
-        })
-      }
-
-      function initChat() {
-        var input = document.getElementById("chatinput");
-        var room = window.location.hash.slice(1);
-        var color = "#"+((1<<24)*Math.random()|0).toString(16);
-
-        input.addEventListener('keydown', function(event) {
-          var key = event.which || event.keyCode;
-          if (key === 13) {
-            rtc._socket.send(JSON.stringify({
-              "eventName": "chat_msg",
-              "data": {
-              "messages": input.value,
-              "room": room,
-              "color": color
-              }
-            }), function(error) {
-              if (error) {
-                console.log(error);
-              }
-            });
-            addToChat(input.value);
-            input.value = "";
-          }
-        }, false);
-        rtc.on('receive_chat_msg', function(data) {
-          console.log(data.color);
-          addToChat(data.messages, data.color.toString(16));
-        });
-      }
+  </div>
 
 
-      function init() {
-        if(PeerConnection){
-          rtc.createStream({"video": true, "audio": true}, function(stream) {
-            document.getElementById('you').src = URL.createObjectURL(stream);
-            videos.push(document.getElementById('you'));
-            rtc.attachStream(stream, 'you');
-            subdivideVideos();
-          });
-        }else {
-          alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
-        }
 
-        
-        var room = window.location.hash.slice(1);
 
-        //When using localhost
-        //rtc.connect("ws://localhost:8000/", room);
-        var loc = document.location.toString().substring(7);
-        rtc.connect("ws://"+loc, room);
-        rtc.on('add remote stream', function(stream, socketId) {
-          console.log("ADDING REMOTE STREAM...");
-          var clone = cloneVideo('you', socketId);
-          document.getElementById(clone.id).setAttribute("class", "");
-          rtc.attachStream(stream, clone.id);
-          subdivideVideos();
-        });
-        rtc.on('disconnect stream', function(data) {
-            console.log('remove ' + data);
-            removeVideo(data);
-        });
-        initFullScreen();
-        initNewRoom();
-        initChat();
-      }
+  <div>
+    <div id="videos" class="hide">
       
-      window.onresize = function(event) {
-        subdivideVideos();
-      };
-    </script>
+      <!-- place holder for initiating a streaming -->
+      <video id="you" autoplay class="flip"></video>
+
+    </div>
+  </div>
+
+    <!-- JAVASCRIPT REQUIRED FILES --> 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/underscore.js"></script>
+    <script type="text/javascript" src="js/lib/backbone.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/webrtc.io.js"></script>
+    <!-- main file for project namespace -->
+    <script src="js/script.js"></script>
+    <script src="js/LiveCast.js"></script>
+
+    <!-- JAVASCRIPT MODULES -->
+    <script type="text/javascript" src="js/editor.js"></script>
+    <script type="text/javascript" src="js/ThemeChooser.js"></script>
   </body>
 </html>
