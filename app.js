@@ -81,3 +81,26 @@ webRTC.rtc.on("canvas_line", function(obj, socket) {
 		}
 	}
 })
+
+/* TODO */
+
+webRTC.rtc.on("canvas_erase", function(obj, socket) {
+	console.log("-> canvas_erase")
+
+	var room = webRTC.rtc.rooms[obj.room] || []
+
+	for (var i = 0; i < room.length; ++i) {
+		var socketId = room[i]
+		if (socketId === socket.id) continue
+
+		var target = webRTC.rtc.getSocket(socketId)
+		if (target) {
+			console.log("<- receive_canvas_erase")
+
+			target.send(JSON.stringify({
+				eventName: "receive_canvas_erase",
+				data: obj
+			}), function(err) { if (err) console.log(err) })
+		}
+	}
+})
