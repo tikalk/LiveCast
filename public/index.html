@@ -32,8 +32,8 @@
 </head>
 <body>
   <div class="container">
-    
-<!-- The video row -->
+
+    <!-- The video row -->
     <div class="row">
       <div class="span8">
         <button class="pull-right">Ask a question</button>
@@ -41,7 +41,7 @@
       <div id="teacher" class="span4">teacher</div>
     </div>
 
-<!-- The studio row -->
+    <!-- The studio row -->
     <div class="row">
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
@@ -49,43 +49,43 @@
           <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
         </ul>
         <div class="tab-content">
-          
+
           <div id="editor" class="tab-pane">
 
-              <div class="btn-toolbar">
-                
-                <button class="btn">langauge</button>
-                <button class="btn">snippets</button>
-                <button class="btn">wrap</button>
+            <div class="btn-toolbar">
 
-                <div class="btn-group" id="theme-chooser">
-                  <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
-                    Theme
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#theme/default">default</a></li>
-                      <li><a href="#theme/ambiance">ambiance</a></li>
-                      <li><a href="#theme/blackboard">blackboard</a></li>
-                      <li><a href="#theme/cobalt">cobalt</a></li>
-                      <li><a href="#theme/eclipse">eclipse</a></li>
-                      <li><a href="#theme/elegant">elegant</a></li>
-                      <li><a href="#theme/erlang">erlang-dark</a></li>
-                      <li><a href="#theme/lesser">lesser-dark</a></li>
-                      <li><a href="#theme/monokai">monokai</a></li>
-                      <li><a href="#theme/neat">neat</a></li>
-                      <li><a href="#theme/night">night</a></li>
-                      <li><a href="#theme/rubyblue">rubyblue</a></li>
-                      <li><a href="#theme/solarized">solarized dark</a></li>
-                      <li><a href="#theme/solarized">solarized light</a></li>
-                      <li><a href="#theme/twilight">twilight</a></li>
-                      <li><a href="#theme/vibrant">vibrant-ink</a></li>
-                      <li><a href="#theme/xq">xq-dark</a></li>
-                  </ul>
-                </div>
+              <button class="btn">langauge</button>
+              <button class="btn">snippets</button>
+              <button class="btn">wrap</button>
+
+              <div class="btn-group" id="theme-chooser">
+                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                  Theme
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#theme/default">default</a></li>
+                  <li><a href="#theme/ambiance">ambiance</a></li>
+                  <li><a href="#theme/blackboard">blackboard</a></li>
+                  <li><a href="#theme/cobalt">cobalt</a></li>
+                  <li><a href="#theme/eclipse">eclipse</a></li>
+                  <li><a href="#theme/elegant">elegant</a></li>
+                  <li><a href="#theme/erlang">erlang-dark</a></li>
+                  <li><a href="#theme/lesser">lesser-dark</a></li>
+                  <li><a href="#theme/monokai">monokai</a></li>
+                  <li><a href="#theme/neat">neat</a></li>
+                  <li><a href="#theme/night">night</a></li>
+                  <li><a href="#theme/rubyblue">rubyblue</a></li>
+                  <li><a href="#theme/solarized">solarized dark</a></li>
+                  <li><a href="#theme/solarized">solarized light</a></li>
+                  <li><a href="#theme/twilight">twilight</a></li>
+                  <li><a href="#theme/vibrant">vibrant-ink</a></li>
+                  <li><a href="#theme/xq">xq-dark</a></li>
+                </ul>
               </div>
+            </div>
 
-              <div id="editor-area"></div>
+            <div id="editor-area"></div>
 
           </div>
 
@@ -101,23 +101,25 @@
         </ul>
       </div>
     </div>
-  
-<!-- The chat row -->
-    <div id="chat">
-      chat
+
+    <!-- The chat row -->
+    <p>
+      <div id="chat" class="row">
+        <div id="messages">
+          messages
+        </div>
+        <div id="inputline">
+          <input id="inputlineEl" class="span11"> <button id="submit" class="btn">Submit</button>
+        </div>
+      </div>
     </div>
 
-  </div>
+    <div style="display:none">
+      <div id="videos">
 
 
-
-
-  <div style="display:none">
-    <div id="videos">
-    
-      
+      </div>
     </div>
-  </div>
 
     <!-- JAVASCRIPT REQUIRED FILES --> 
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -133,4 +135,4 @@
     <script type="text/javascript" src="js/editor.js"></script>
     <script type="text/javascript" src="js/ThemeChooser.js"></script>
   </body>
-</html>
+  </html>

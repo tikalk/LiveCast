@@ -16,3 +16,13 @@
 #students ul li span{
   padding: 0 10px;
 }
+
+#chat {
+	border: 1px solid gray;
+}
+#chat #messages {
+
+}
+#chat #inputlineEl {
+	background: cyan;
+}
