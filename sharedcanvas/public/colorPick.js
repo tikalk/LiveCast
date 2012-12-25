@@ -31,6 +31,8 @@ app.buildColorPalette = function() {
   app.colorctx.fillRect(0, 0, app.colorctx.canvas.width, app.colorctx.canvas.height);
  
   app.$colors.mousedown(function(e) {
+      app.colorEventX = e.pageX - app.$colors.offset().left;
+      app.colorEventY = e.pageY - app.$colors.offset().top;
  
     // Track mouse movement on the canvas if the mouse button is down
     $(document).mousemove(function(e) {
@@ -53,6 +55,6 @@ app.buildColorPalette = function() {
 
 app.getColor = function(e) {
   imageData = app.colorctx.getImageData(app.colorEventX, app.colorEventY, 1, 1);
-  var newColor = 'rgb(' + imageData.data[4] + ', ' + imageData.data[5] + ', ' + imageData.data[6] + ')';
+  var newColor = 'rgb(' + imageData.data[1] + ', ' + imageData.data[2] + ', ' + imageData.data[3] + ')';
   app.magic.colorPicked(newColor);
 };
