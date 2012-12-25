@@ -61,14 +61,6 @@ var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || nav
     rtc._socket = new WebSocket(server);
 
     rtc._socket.onopen = function() {
-      rtc._socket.send(JSON.stringify({
-        "eventName": "login",
-        "data":{
-          "nickname": nickname
-        }
-      }), function(error){
-          if(error){console.log(error);}
-        });
 
       rtc._socket.send(JSON.stringify({
         "eventName": "join_room",
