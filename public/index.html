@@ -3,6 +3,32 @@
   <title>Example webrtc.io</title>
   <link type="text/css" href="css/style.css" rel="stylesheet"></link>
 
+  <link rel="stylesheet" href="css/bootstrap.min.css"></link>
+
+  <!-- CODE MIRROR COMPONENT -->
+  <script src="js/lib/codemirror.js"></script>
+  
+  <!-- code styles -->
+  <link rel="stylesheet" href="css/codemirror/codemirror.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/ambiance.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/blackboard.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/cobalt.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/eclipse.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/elegant.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/erlang-dark.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/lesser-dark.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/monokai.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/neat.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/night.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/rubyblue.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/solarized-dark.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/solarized-light.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/twilight.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/vibrant-ink.css"></link>
+  <link rel="stylesheet" href="css/codemirror/theme/xq-dark.css"></link>
+
+  <script src="js/lib/mode/javascript/javascript.js"></script>
+
 </head>
 <body>
   <div class="container">
@@ -23,9 +49,46 @@
           <li><a href="#canvas" data-toggle="tab">Canvas</a></li>
         </ul>
         <div class="tab-content">
+          
           <div id="editor" class="tab-pane">
-            editor
+
+              <div class="btn-toolbar">
+                
+                <button class="btn">langauge</button>
+                <button class="btn">snippets</button>
+                <button class="btn">wrap</button>
+
+                <div class="btn-group" id="theme-chooser">
+                  <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                    Theme
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#theme/default">default</a></li>
+                      <li><a href="#theme/ambiance">ambiance</a></li>
+                      <li><a href="#theme/blackboard">blackboard</a></li>
+                      <li><a href="#theme/cobalt">cobalt</a></li>
+                      <li><a href="#theme/eclipse">eclipse</a></li>
+                      <li><a href="#theme/elegant">elegant</a></li>
+                      <li><a href="#theme/erlang">erlang-dark</a></li>
+                      <li><a href="#theme/lesser">lesser-dark</a></li>
+                      <li><a href="#theme/monokai">monokai</a></li>
+                      <li><a href="#theme/neat">neat</a></li>
+                      <li><a href="#theme/night">night</a></li>
+                      <li><a href="#theme/rubyblue">rubyblue</a></li>
+                      <li><a href="#theme/solarized">solarized dark</a></li>
+                      <li><a href="#theme/solarized">solarized light</a></li>
+                      <li><a href="#theme/twilight">twilight</a></li>
+                      <li><a href="#theme/vibrant">vibrant-ink</a></li>
+                      <li><a href="#theme/xq">xq-dark</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div id="editor-area"></div>
+
           </div>
+
           <div id="canvas" class="tab-pane">
             canvas
           </div>
@@ -51,29 +114,23 @@
 
   <div style="display:none">
     <div id="videos">
-      <a href="https://github.com/webRTC"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-      <video id="you" class="flip" autoplay style="border-color:green"></video>
-    </div>
-    <div id="chatbox">
-      <button id="fullscreen">Enter Full Screen</button>
-      <button id="newRoom">Create A New Room</button>
-      <div id="messages">
-      </div>
-      <br>
-      <input id="chatinput" type="text"/>
-    </div>
-
     
+      
+    </div>
   </div>
 
+    <!-- JAVASCRIPT REQUIRED FILES --> 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/underscore.js"></script>
+    <script type="text/javascript" src="js/lib/backbone.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/webrtc.io.js"></script>
+    <!-- main file for project namespace -->
+    <script src="js/student_list.js"></script>
+    <script src="js/script.js"></script>
 
-
-  <!-- Script Includes -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/webrtc.io.js"></script>
-  <script src="js/student_list.js"></script>
-  <script src="js/script.js"></script>
-
+    <!-- JAVASCRIPT MODULES -->
+    <script type="text/javascript" src="js/editor.js"></script>
+    <script type="text/javascript" src="js/ThemeChooser.js"></script>
   </body>
 </html>
