@@ -29,115 +29,163 @@ $(document).ready(function(){
     app.selectedColor = "#000000";
     app.lineCap = 'round';
     app.lineWidth = 2.5;
+    app.clickX = [];
+    app.clickY = [];
+    app.clickDrag = [];
 
   var doc = $(document),
-	drawingCanvas = $('<canvas></canvas>'),
-    pickerCanvas = $('<canvas></canvas>');
+	drawingCanvas = document.createElement('canvas'),
+    pickerCanvas = $('<canvas id="pickerCanvas" class="color-palette"></canvas>');
 
-    drawingCanvas.width($(document).width());
-    drawingCanvas.height($(document).height() - 40);
+    drawingCanvas.setAttribute('width', $(document).width());
+    drawingCanvas.setAttribute('height', $(document).height() - 40);
 
     pickerCanvas.width(284);
     pickerCanvas.height(135);
-    pickerCanvas.addClass('color-palette');
 
 	$('body').append(drawingCanvas);
     $('.color-picker-wrapper').append(pickerCanvas);
 	
+    app.$colors  = $('.color-palette');
+    app.colorctx = app.$colors[0].getContext('2d');
+
+    // Init the color paleete
+    app.buildColorPalette();
+
 	// Event.observe(window, 'resize', function(){
     // document.location.reload();
 	// });
   
   // Check the element is in the DOM and the browser supports canvas
-  if(!drawingCanvas[0].getContext) {
+  if(!drawingCanvas.getContext) {
     alert("No canvas tag :(");
     return;
   }
-  var context = drawingCanvas[0].getContext('2d');
+  var context = drawingCanvas.getContext('2d');
   
   context.lineCap = app.lineCap;
   context.lineWidth = app.lineWidth;
 
   app.mouseIsDown = false;
 	
-	var magic = {
-		context: drawingCanvas[0].getContext('2d'),
+    app.magic = {
+		context: drawingCanvas.getContext('2d'),
 		touchCache: {},
 		setup: function() {
             this.context.lineCap = app.lineCap;
             this.context.lineWidth = app.lineWidth;
             socket.connect();
 		},
-		drawLine: function(moveX, moveY, lineX, lineY) {
+        drawResetStart: function () {
             this.context.strokeStyle = app.selectedColor;
             this.context.fillStyle = app.selectedColor;
             this.context.beginPath();
-            this.context.moveTo(moveX, moveY);
-            this.context.lineTo(lineX, lineY);
+        },
+        drawResetEnd: function () {
             this.context.closePath();
             this.context.stroke();
             this.context.fill();
+        },
+        draw: function (clickX, clickY, clickDrag) {
+            app.magic.clear();
+
+            app.magic.drawResetStart();
+            for (var i = 0; i < app.clickX.length; i++) {
+                context.beginPath();
+                if (app.clickDrag[i] && i) {
+                    context.moveTo(app.clickX[i - 1], app.clickY[i - 1]);
+                } else {
+                    context.moveTo(app.clickX[i]- 1, app.clickY[i]);
+                }
+                context.lineTo(app.clickX[i], app.clickY[i]);
+                context.closePath();
+                context.stroke();
+                context.fill();
+            }
+        },
+		drawLine: function(moveX, moveY, lineX, lineY) {
+            app.magic.drawResetStart();
+            this.context.moveTo(moveX, moveY);
+            this.context.lineTo(lineX, lineY);
+            app.magic.drawResetEnd();
 		},
 		clear: function() {
+            this.context.fillStyle = '#ffffff';  // Workaround for Chrome
 			this.context.clearRect(0,0, document.width, document.height - 40);
+            this.context.width = this.context.width;
 		},
-        colorPicked: function(newColor) {
+        colorPicked: function (newColor) {
             app.selectedColor = newColor;
         },
-		eventToProtocol: function(touch) {
+		eventToProtocol: function (touch) {
 			return { x: touch.pageX, y: touch.pageY, id: touch.identifier };
 		}
 	};
 	
-	magic.setup();
+	app.magic.setup();
 
-    drawingCanvas.bind('touchstart', function(e) {
+    app.addClick = function (x, y, dragging) {
+        app.clickX.push(x);
+        app.clickY.push(y);
+        app.clickDrag.push(dragging);
+    };
+
+    $(drawingCanvas).bind('touchstart', function(e) {
         var t = e.touches.map(function(touch) {
-            magic.touchCache[touch.identifier] = { x: touch.pageX, y: touch.pageY };
-            magic.drawLine(touch.pageX - 1, touch.pageY -1, touch.pageX, touch.pageY);
-            return magic.eventToProtocol(touch);
+            app.magic.touchCache[touch.identifier] = { x: touch.pageX, y: touch.pageY };
+            app.magic.drawLine(touch.pageX - 1, touch.pageY -1, touch.pageX, touch.pageY);
+            return app.magic.eventToProtocol(touch);
         });
         socket.send({ e: "start", touches: t });
         e.preventDefault();
     });
 
-    drawingCanvas.bind('mousedown', function(e) {
+    $(drawingCanvas).bind('mousedown', function(e) {
         app.mouseIsDown = true;
-        e.preventDefault();
+        // Mouse down location
+        var mouseX = e.pageX - this.offsetLeft;
+        var mouseY = e.pageY - this.offsetTop;
+
+        app.addClick(mouseX, mouseY, false);
+        //app.magic.drawLine(mouseX - 1, mouseY - 1, mouseX, mouseY);
+        app.magic.draw(app.clickX, app.clickY, app.clickDrag);
     });
 
-    drawingCanvas.bind('touchmove', function(e) {
+    $(drawingCanvas).bind('touchmove', function(e) {
         var t = e.touches.map(function(touch) {
-            var lastEvent = magic.touchCache[touch.identifier];
-                magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
-                lastEvent.x = touch.pageX;
-                lastEvent.y = touch.pageY;
-                return magic.eventToProtocol(touch);
+            var lastEvent = app.magic.touchCache[touch.identifier];
+            
+            app.magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
+            lastEvent.x = touch.pageX;
+            lastEvent.y = touch.pageY;
+            return app.magic.eventToProtocol(touch);
         });
         socket.send({ e: "move", touches: t });
         e.preventDefault();
     });
 
-    drawingCanvas.bind('mousemove', function(e) {
+    $(drawingCanvas).bind('mousemove', function(e) {
         if (app.mouseIsDown) {
+            app.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            //app.magic.drawLine(app.clickX[app.clickX.length], app.clickY[app.clickY.length], e.pageX, e.pageY);
+            app.magic.draw(app.clickX, app.clickY, app.clickDrag);
         }
-        e.preventDefault();
     });
 
-    drawingCanvas.bind('touchend', function(e) {
+    $(drawingCanvas).bind('touchend', function(e) {
         var t = e.touches.map(function(touch) {
-            var lastEvent = magic.touchCache[touch.identifier];
-                magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
-            delete magic.touchCache[touch.identifier];
-            return magic.eventToProtocol(touch);
+            var lastEvent = app.magic.touchCache[touch.identifier];
+                app.magic.drawLine(lastEvent.x, lastEvent.y, touch.pageX, touch.pageY);
+            delete app.magic.touchCache[touch.identifier];
+            return app.magic.eventToProtocol(touch);
         });
         socket.send({ e: "end", touches: t });
         e.preventDefault();
     });
 
-    drawingCanvas.bind('mouseup', function(e) {
+    $(drawingCanvas).bind('mouseup', function(e) {
         app.mouseIsDown = false;
-        e.preventDefault();
+        app.magic.draw(app.clickX, app.clickY, app.clickDrag);
     });
 
 	$('.clear').bind('click', function(e){
@@ -148,9 +196,7 @@ $(document).ready(function(){
 
     $('.color-pick').bind('click', function (e) {
         $('.color-picker-wrapper').toggle();
-        app.buildColorPalette();
     });
-
 
   socket.on('message', function(m) {
     if(m.e == 'start') {
@@ -182,5 +228,4 @@ $(document).ready(function(){
 		}
 
   });
-
 });

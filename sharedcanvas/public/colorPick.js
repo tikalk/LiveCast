@@ -1,9 +1,6 @@
 // Origin from http://seesparkbox.com/foundry/how_i_built_a_canvas_color_picker
 
 var app = app || {};
-
-app.$colors  = $('.color-palette');
-app.colorctx = app.$colors[0].getContext('2d');
  
 // Build Color palette
 app.buildColorPalette = function() {
@@ -37,8 +34,8 @@ app.buildColorPalette = function() {
  
     // Track mouse movement on the canvas if the mouse button is down
     $(document).mousemove(function(e) {
-      app.colorEventX = e.pageX - ms.$colors.offset().left;
-      app.colorEventY = e.pageY - ms.$colors.offset().top;
+      app.colorEventX = e.pageX - app.$colors.offset().left;
+      app.colorEventY = e.pageY - app.$colors.offset().top;
     });
   
     // Get the color at the current mouse coordinates
@@ -48,13 +45,14 @@ app.buildColorPalette = function() {
   // On mouseup, clear the interval and unbind the mousemove event,
   // it should only happen if the button is down
   .mouseup(function(e) {
-    clearInterval(ms.colorTimer);
+    clearInterval(app.colorTimer);
     $(document).unbind('mousemove');
+    $('.color-picker-wrapper').toggle();
   });
 };
 
 app.getColor = function(e) {
-  var newColor;
   imageData = app.colorctx.getImageData(app.colorEventX, app.colorEventY, 1, 1);
-  app.selectedColor = 'rgb(' + imageData.data[4] + ', ' + imageData.data[5] + ', ' + imageData.data[6] + ')';
+  var newColor = 'rgb(' + imageData.data[4] + ', ' + imageData.data[5] + ', ' + imageData.data[6] + ')';
+  app.magic.colorPicked(newColor);
 };
