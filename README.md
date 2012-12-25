@@ -6,6 +6,7 @@ Tikal's Fuseday JS Session Concept - a live screencast system for remote
 ##Getting Started##
 1. Clone the repo
 2. cd into LiveCast
+3. Run npm install (first time) - second time run npm update
 3. run: node app.js
 4. go to [localhost:8000](http://localhost:8000)
 
