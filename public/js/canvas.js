@@ -51,7 +51,7 @@
         if (!mouse_is_down) return;
 
         var mouse_pos = getMousePos(canvas, e),
-            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "green"];
+            args = [old_x, old_y, mouse_pos.x, mouse_pos.y, "#ff0080"];
 
         drawLine.apply(this, args);
         sendLine.apply(this, args);
@@ -76,18 +76,8 @@
 
         rtc.connect("ws://" + location.host, ROOM)
 
-        /*
-        rtc.on("add remote stream", function(stream, socket) {
-            console.log("Add remote stream")
-        })
-
-        rtc.on("disconnect stream", function(stream, socket) {
-            console.log("Disconnect stream")
-        })
-        */
-
         rtc.on("receive_canvas_line", function(obj) {
-            console.log("Receive canvas line", obj)
+            // console.log("Receive canvas line", obj)
             drawLine(obj.start_point[0], obj.start_point[1], obj.end_point[0], obj.end_point[1], obj.color)
         })
     }
