@@ -1,14 +1,13 @@
-function getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
-}
-
 (function() {
-    
     function $(id) { return document.getElementById(id); }
+
+    function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: evt.clientX - rect.left,
+            y: evt.clientY - rect.top
+        };
+    }
 
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
@@ -16,11 +15,11 @@ function getMousePos(canvas, evt) {
     var old_x;
     var old_y;
     var mouse_is_down = false;
-    
-    console.log("canvas init");
+
     canvas.addEventListener("mousemove", cursorMove, false);
     canvas.addEventListener("mousedown", cursorDown, false);
     document.addEventListener("mouseup", cursorUp, false);
+
     canvas.width = 500;
     canvas.height = 600;
 
@@ -86,8 +85,8 @@ function getMousePos(canvas, evt) {
 	    }), function(err) { if (err) console.log(err) })
 	}, false)
     }
-    
+
     this.canvasMod = {
-	initialize: initialize
+        initialize: initialize
     };
 })();
