@@ -22,7 +22,10 @@ $(document).ready(function(){
 
       if(PeerConnection){
         rtc.createStream({"video": true, "audio": true}, function(stream) {
-          var id = 'vid_' + user.socketId;
+          var id = 'you';
+          if(user.role != "teacher"){
+            id = 'vid_' + user.socketId;            
+          }
           var vid = $("#" + id);
           vid.src = URL.createObjectURL(stream);
           videos.push(vid);
