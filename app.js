@@ -94,7 +94,7 @@ webRTC.rtc.on('login', function(data, socket){
             lastCodeEditorData = data;
             SocketHelpers.doForCurrentRoomPeers(function(socketId){
                if (socket.id != socketId){
-                   SocketHelpers.emitEventToPeer(socket.id, "code_changed", data);
+                   SocketHelpers.emitEventToPeer(socketId, "code_changed", data);
                }
             });
         });

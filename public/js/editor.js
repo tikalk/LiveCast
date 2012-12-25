@@ -7,19 +7,38 @@ $(function() {
 		lineNumbers: true
 	});
 
-	myCodeMirror.on('change', function(instance) {
-		LiveCast.send( LiveCast.SendEvents.CODE, {
-			value: instance.getValue()
-		});
-	});
+	function setTeacherState() {
 
+		myCodeMirror.on('change', function(instance) {
+			LiveCast.send( LiveCast.SendEvents.CODE, {
+				value: instance.getValue()
+			});
+		});
+
+	}
+
+
+	function setStudentState(){
+		
+		myCodeMirror.setOption('readOnly', true);
+		rtc.on(LiveCast.RecieveEvents.CODE_CHANGED, function(data){
+			console.log(data);
+			myCodeMirror.setOption('value', data);
+		});
+
+	}
 	// listen to events
 	Backbone.on('theme-changed', function(theme){
 		myCodeMirror.setOption('theme', theme);
 	});
 
 	Backbone.on('user-connected', function(data){
-		var readOnly = data.user === 'teacher' ? true : false;
-		myCodeMirror.setOption('readOnly', readOnly);
+		var isStudent = data.role === 'student' ? true : false;
+
+		if (!isStudent) {
+			setTeacherState();
+		} else {
+			setStudentState();
+		}
 	});
 });
