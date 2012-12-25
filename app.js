@@ -38,17 +38,17 @@ webRTC.rtc.on('send answer', function(rtc) {
 webRTC.rtc.on('disconnect', function(rtc) {
   //Client disconnect 
   console.log('disconnect '+rtc.sockets);
-  for (var i in nicknames){
+  for (var socketId in nicknames){
     var isFound = false;
     for(var j=0; j<rtc.sockets.length;j++){
-      if(i == rtc.sockets[j].id){
+      if(socketId == rtc.sockets[j].id){
         isFound = true;
         break;
       }  
     }
     if (! isFound){
-      console.log("Disconnected Nickname: "+nicknames[i]);
-      delete nicknames[nicknames[i]];
+      console.log("Disconnected Nickname: "+nicknames[socketId]);
+      delete nicknames[nicknames[socketId]];
       break;
     }
     
