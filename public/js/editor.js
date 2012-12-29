@@ -23,7 +23,8 @@ $(function() {
 		myCodeMirror.setOption('readOnly', true);
 		rtc.on(LiveCast.RecieveEvents.CODE_CHANGED, function(data){
 			console.log(data);
-			myCodeMirror.setOption('value', data);
+			if(data && data.value)
+				myCodeMirror.setOption('value', data.value);
 		});
 
 	}
