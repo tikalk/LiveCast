@@ -45,6 +45,20 @@ $(document).ready(function(){
   rtc.on('user_added', function  (data) {
      console.log('User added');
      console.log(data);
+     if(PeerConnection){
+        rtc.createStream({"video": true, "audio": true}, function(stream) {
+          var id = ''; //fsdfsfsfsfsd
+          StudentsList.add(data.nickname,data.socketId,'student');
+          id = 'vid_' + data.socketId;            
+          var vid = $("#" + id);
+          vid.src = URL.createObjectURL(stream);
+          videos.push(vid);
+          rtc.attachStream(stream, id);
+          //subdivideVideos();
+        });
+      }else {
+        alert('Your browser is not supported or you have to turn on flags. In chrome you go to chrome://flags and turn on Enable PeerConnection remember to restart chrome');
+      }
   })
 });
 
