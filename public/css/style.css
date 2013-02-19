@@ -11,40 +11,43 @@
 
 #login_div {
 	padding-top: 100px;
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	padding-bottom: 50px;
 }
 
-#login_div #my_nick {
-	border: 2px solid blue;
-}
 
 #teacher {
 	height: 210px;
   text-align: center;
-	outline: 1px solid grey;
+	/*outline: 1px solid grey;*/
 }
 #students {
 	padding-top: 5px;
 	outline-left: 1px solid blue;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: 800px; 
+	max-height: 800px;
+    min-height: 200px;
+}
+
+/* Disable students panel*/
+#students{
+    display:none;
 }
 
 #chat {
-	margin: 3px;
+	padding: 3px;
 }
 #chat #messages {
 	outline: 1px solid gray;
-	margin: 5px;
+	/*margin: 5px;*/
 	min-height: 7em;
 	max-height: 30em;
 	overflow-y: auto;
 }
 #chat #inputlineEl {
-  background: cyan;
-  margin: 5px;
+  /*background: cyan;
+  margin: 5px;*/
 }
 
 header {

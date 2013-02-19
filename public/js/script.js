@@ -162,36 +162,44 @@ function initNewRoom() {
 }
 
 function initChat() {
-  var input = document.getElementById("chatinput");
-  var room = window.location.hash.slice(1);
-  var color = "#"+((1<<24)*Math.random()|0).toString(16);
-
-  input.addEventListener('keydown', function(event) {
-    var key = event.which || event.keyCode;
-    if (key === 13) {
-      rtc._socket.send(JSON.stringify({
-        "eventName": "chat_msg",
-        "data": {
-          "messages": input.value,
-          "room": room,
-          "color": color
-        }
-      }), function(error) {
-        if (error) {
-          console.log(error);
-        }
-      });
-      addToChat(input.value);
-      input.value = "";
-    }
-  }, false);
-  rtc.on('receive_chat_msg', function(data) {
-    console.log(data.color);
-    addToChat(data.messages, data.color.toString(16));
-  });
+    var input =$("#chatinput");
+    window.room = window.location.hash.slice(1);
+    window.color = "#"+((1<<24)*Math.random()|0).toString(16);
+    input.on('keyup',onKeyup);
+    $("#send").on('click',sendChatMessage);
+    rtc.on('receive_chat_msg', function(data) {
+        console.log(data.color);
+        addToChat(data.messages, data.color.toString(16));
+    });
 }
 
+var onKeyup =  function(event){
+    var key = event.which || event.keyCode;
+    var input = $("#chatinput");
+    if (key === 13) {
+        sendChatMessage(input);
+    }
+}
 
+function sendChatMessage(input){
+    if(!input || !input.val){
+        input =  $("#chatinput");
+    }
+    rtc._socket.send(JSON.stringify({
+        "eventName": "chat_msg",
+        "data": {
+            "messages": input.val(),
+            "room": room,
+            "color": color
+        }
+    }), function(error) {
+        if (error) {
+            console.log(error);
+        }
+    });
+    addToChat( input.val());
+    input.val("") ;
+}
 function init() {
   if(PeerConnection){
     // rtc.createStream({"video": true, "audio": true}, function(stream) {
@@ -228,7 +236,7 @@ function init() {
   });
   // initFullScreen();
   // initNewRoom();
-  // initChat();
+  initChat();
 }
 
 // window.onresize = function(event) {
@@ -236,3 +244,4 @@ function init() {
 // };
 
 $(init);
+//$(initChat());

@@ -32,9 +32,9 @@
   <header>
     Tikal Fuse LiveCast Project
   </header>
-  <div id="login_div" class="container row shadow" style="text-align:center;">
+  <div id="login_div" class="container row" style="text-align:center;">
     Enter your nickname, bro:<br>
-    <input class="span2 shadow" id="my_nick" type="text"><br>
+    <input class="span2" id="my_nick" type="text"><br>
     <button class="btn btn-primary" id="login_me" type="button">Go!</button>
   </div>
   
@@ -44,10 +44,6 @@
   <!-- The video row -->
   <div class="row">
     <div id="main_pane">
-      <div class="span8">
-        <button class="pull-right">Ask a question</button>
-      </div>
-      
       <div id="studio" class="tabbable span8">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
@@ -57,13 +53,15 @@
 
           <div id="editor" class="tab-pane active">
 
-            <div class="btn-toolbar">
+            <div class="btn-toolbar btn-group">
 
+
+                  <!--
               <button class="btn">langauge</button>
               <button class="btn">snippets</button>
               <button class="btn">wrap</button>
+-->
 
-              <div class="btn-group" id="theme-chooser">
                 <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
                   Theme
                   <span class="caret"></span>
@@ -87,7 +85,9 @@
                   <li><a href="#theme/vibrant">vibrant-ink</a></li>
                   <li><a href="#theme/xq">xq-dark</a></li>
                 </ul>
-              </div>
+                  <button class="btn btn-primary pull-right">Ask a question</button>
+
+
             </div>
 
             <div id="editor-area"></div>
@@ -101,7 +101,7 @@
       </div> 
     </div>
     <div id="right_pane">
-      <div id="teacher" class="span4 shadow video teacher">
+      <div id="teacher" class=" video teacher span4 ">
         <a>
           <span class="pull-left label label-warning">Teacher</span>
           <video id="teacher-video" class="teacher" autoplay></video>
@@ -109,7 +109,7 @@
         </a>
       </div>
 
-      <div id="students" class="span4 shadow">
+      <div id="students" class="span4">
         <ul id="videos">
           <!--li><a><video id="you" autoplay class="flip"></video><span>Teacher</span></a></li-->
         </ul>
@@ -118,16 +118,17 @@
   </div>
 
   <!-- The chat row -->
-  <p>
-    <div id="chat" class="row shadow">
+  <div class="row span12">
+    <div id="chat" class="row ">
       <div id="messages">
         messages
       </div>
       <div id="inputline">
-        <input id="inputlineEl" class="span11"> <button id="submit" class="btn">Submit</button>
+        <input id="chatinput" class="span11"/> <button id="send" class="btn">Submit</button>
       </div>
     </div>
   </div>
+</div>
 
   <footer>
     Tikal Knowledge
