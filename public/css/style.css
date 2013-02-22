@@ -1,6 +1,5 @@
-@import url('bootstrap.min.css');
 
-.container div {
+.container > div {
   outline: 0px solid gray;
   margin-top: 10px;
 }
@@ -11,7 +10,6 @@
 
 #login_div {
 	padding-top: 100px;
-	/*border: 2px solid blue;*/
 	padding-bottom: 50px;
 }
 
@@ -19,7 +17,6 @@
 #teacher {
 	height: 210px;
   text-align: center;
-	/*outline: 1px solid grey;*/
 }
 #students {
 	padding-top: 5px;
@@ -40,14 +37,11 @@
 }
 #chat #messages {
 	outline: 1px solid gray;
-	/*margin: 5px;*/
 	min-height: 7em;
 	max-height: 30em;
 	overflow-y: auto;
 }
 #chat #inputlineEl {
-  /*background: cyan;
-  margin: 5px;*/
 }
 
 header {
