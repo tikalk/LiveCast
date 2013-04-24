@@ -2,7 +2,7 @@ var express = require('express'),
     path = require('path'),
     SocketHelpers = require('./utils/SocketHelpers');
 
-var app = express.createServer();
+var app = express();
 app.listen(8000);
 console.log('Server listening to port: '+8000);
 var webRTC = require('webrtc.io').listen(app);
