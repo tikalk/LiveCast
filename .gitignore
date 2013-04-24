@@ -1,6 +1,6 @@
 *.sublime-project
 *.sublime-workspace
-
+nbproject
 node_modules/*
 
 */.DS_Store
