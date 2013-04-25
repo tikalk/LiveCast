@@ -7,6 +7,6 @@ app/node_modules
 npm-debug.log
 
 /dist
-app/public/
 .tmp
+.temp/
 .sass-cache
