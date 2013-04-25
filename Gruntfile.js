@@ -146,8 +146,8 @@ module.exports = function (grunt) {
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/images',
-                    dest: '<%= c.dev %>/private/.temp/images',
+                    cwd: '<%= c.dev %>/private/img',
+                    dest: '<%= c.dev %>/private/.temp/img',
                     src: [
                         '*'
                     ]
