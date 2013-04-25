@@ -1,0 +1,11 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/work\/temp\/grunt-express\/app\/private\/stylesheets\/style\.scss}line{font-family:\000031}}
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #333333;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/work\/temp\/grunt-express\/app\/private\/stylesheets\/style\.scss}line{font-family:\000037}}
+a {
+  color: #00B7FF;
+}

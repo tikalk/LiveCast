@@ -1,9 +1,12 @@
-*.sublime-project
-*.sublime-workspace
-nbproject
-node_modules/*
+.DS_Store
+.elasticbeanstalk
+.idea
 
-*/.DS_Store
-.idea/*
+node_modules
+app/node_modules
+npm-debug.log
 
-nohup.out
+/dist
+app/public/
+.tmp
+.sass-cache

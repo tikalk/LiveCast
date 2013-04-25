@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=title%></title>
+
+
+</head>
+<body>
+    <h1>Welcome to <%=title%></h1>
+    <div>
+        <h3>Server Time is:</h3>
+        <h4 id="t"></h4>
+        <button id="refreshNowBtn">Refresh Now</button>
+    </div>
+
+
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        var socket = io.connect();
+
+        $(document).ready(function(){
+            //Socket protocol
+            //Example event pushed from the server:
+            socket.on('serverTime', function (message) {
+                $('#t').html( message.time );
+            });
+
+            $('#refreshNowBtn').click(function () {
+                socket.emit('refresh');
+            });
+        });
+
+    </script>
+</body>
+</html>
