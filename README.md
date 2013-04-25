@@ -40,7 +40,7 @@ Server should listen to port 3000
 
 
 ##Static content##
-All the static (js, css & img) content is located under /public.
+All the static (js, css & img) content is located under /private. The Grunt build process will copy them to /public
 
 
 /views/index.ejs renders to "index.html" so this is the main view for the app.
