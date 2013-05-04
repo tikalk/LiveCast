@@ -9,4 +9,10 @@ npm-debug.log
 /dist
 .tmp
 .temp/
+app/private/.temp/
 .sass-cache
+
+livecast.sublime-project
+livecast.sublime-workspace
+nohup.out
+vclassroom.sublime-workspace
