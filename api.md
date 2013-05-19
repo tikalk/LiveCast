@@ -46,7 +46,7 @@ Example:
 
 
 **For Text Editor, Canvas, Presentation**  
-The admin can use the OUT commands or others will only recieve notification on changes  
+The admin can use the OUT commands and others will only recieve notification on changes  
 
 **Text Editor**  
 we'll want to send on the writing process including deleteing and cursor movement, this why on the admin side we need to
