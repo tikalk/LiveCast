@@ -7,13 +7,19 @@ every call is async.
 **Joining Lecture**  
 OUT: `connect-user(userName)`  
 IN: `joined(isAdmin)`  
+IN: `join-failed(reason)`  
 Example:  
 
 	socket.emit('connect-user', 'Shachar');
-	socket.on('joined', function(isAdmin) {
-	});
+	socket.on('joined', function(isAdmin) {	});
+	socket.on('join-failed', function(reason) {});
 
+**Admin leaving**  
+if admin leaves, you will recieve end event
+IN: `end(reason)` 
+Example:
 
+	socket.on('end', function(reason) {});
 
 **List users**  
 You can ask for user list manualy, but on every user joined or left you'll also recieve updates to 'users-list'  
