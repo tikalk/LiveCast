@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%=title%></title>
-    <link href="stylesheets/style.css" rel="stylesheet">
-
-
+	<title><%=title%></title>
+	<link href="stylesheets/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container ">
-        <h1>Welcome to <%=title%></h1>
-        <div>
-            <h3>Server Time is:</h3>
-            <h4 id="t"></h4>
-            <button class="btn" id="refreshNowBtn">Refresh Now</button>
-        </div>
-    </div>
+<div class="container">
+	<h1>Welcome to <%=title%></h1>
+	<div id="join-lecture">
+		<input name="userName" value="" type="text" />
+		<button class="btn" id="btnJoinRoom">Join room</button>
+	</div>
+</div>
 
 
 
-    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-    <script src='/socket.io/socket.io.js'></script>
-    <script>
-        var socket = io.connect();
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src='/socket.io/socket.io.js'></script>
+<script>
+	var socket = io.connect();
 
-        $(document).ready(function(){
-            //Socket protocol
-            //Example event pushed from the server:
-            socket.on('serverTime', function (message) {
-                $('#t').html( message.time );
-            });
+	$('#btnJoinRoom').on('click', function() {
+		// lock the screen: connecting...
+		socket.emit('connect-user', this.value);
+		socket.on('joined', function(isAdmin) {
+			// release screen lock
+			//show the admin panel or user panel depending on isLecuter
+			alert('join room as: ' + (isAdmin?'Admin':'User'));
+		});
+	});
 
-            $('#refreshNowBtn').click(function () {
-                socket.emit('refresh');
-            });
-        });
 
-    </script>
+</script>
 </body>
 </html>
