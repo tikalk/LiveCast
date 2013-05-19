@@ -68,8 +68,9 @@ to be decided
 
 **TextEditor**
 assume start position of the cursor in in the top left corner  
-IN: `texteditor(userName, keys)`  
+IN: `texteditor(keys)`  
 OUT: `texteditor(keys)`  
+OUT: `texteditor-failed(reason)` 
 Example:
 	
 	// 1. only admin cam emit this event, 2. keystokes passed as ascii codes
@@ -80,8 +81,9 @@ Example:
 
 **Canvas**  
 assumptions: top-left corner is 0,0, bottom-right corner is MAX _ W, MAX _ H, only one color supported, no erease feature.  
-IN: `canvas(userName, trail)`  
+IN: `canvas(trail)`  
 OUT: `canvas(trail)`  
+OUT: `canvas-failed(reason)`  
 Example:
 
 	// only admin can emit this event
