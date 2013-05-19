@@ -35,7 +35,7 @@ Example:
 	socket.emit('chat-message', {userName: 'Shachar', msg: 'Great lecture, thank you'}); 
 
 
-**Chat messages list update**
+**Chat messages list update**  
 everytime someone push message to chat all the clients will get update  
 IN: `chat-message(msg)`  
 Example:  
@@ -45,14 +45,14 @@ Example:
 	});
 
 
-**For Text Editor, Canvas, Presentation**
+**For Text Editor, Canvas, Presentation**  
 The admin can use the OUT commands or others will only recieve notification on changes  
 
 **Text Editor**  
 we'll want to send on the writing process including deleteing and cursor movement, this why on the admin side we need to
 save in array all the keystrokes and push them to the server once every 1s to be replayed by the cliets  
 
-**Canvas**
+**Canvas**  
 we'll want that drawing process be both fluent and mimic every admin movement to the clients, this is the implementation that should work  
 fine: On admin side we need to sample mouse position on the canvas while mouse button clicked, and every 50ms, save the X,Y position  
 of the mouse inside the canvas, every 1s push the array of mouse track to the server and clients should replay the drawing on thier canvas  
