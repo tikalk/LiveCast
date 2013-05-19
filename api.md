@@ -35,10 +35,10 @@ Note: first user in the list is the admin
 
 
 **Chat send message**  
-OUT: `chat-message(userName, msg)`  
+OUT: `chat-message(msg)`  
 Example:  
 
-	socket.emit('chat-message', {userName: 'Shachar', msg: 'Great lecture, thank you'}); 
+	socket.emit('chat-message', 'Great lecture, thank you'); 
 
 
 **Chat messages list update**  
@@ -74,7 +74,7 @@ OUT: `texteditor-failed(reason)`
 Example:
 	
 	// 1. only admin cam emit this event, 2. keystokes passed as ascii codes
-	socket.emit('texteditor', {userName: 'Shachar', keys: [13, 13, 9, 72, 105, 32, 97, 108, 108]})
+	socket.emit('texteditor', [13, 13, 9, 72, 105, 32, 97, 108, 108]);
 	socket.on('texteditor', function(keys) {
 		// keys = [13, 13, 9, 72, 105, 32, 97, 108, 108]; // "CR CR TAB Hi All"
 	});
@@ -87,12 +87,12 @@ OUT: `canvas-failed(reason)`
 Example:
 
 	// only admin can emit this event
-	var points = [], i=100;
+	var trail = [], i=100;
 	while(i--) {
 		// line
 		points.push([10, i]);
 	}
-	socket.emit('canvas', {userName: 'Shachar', trail: points})
+	socket.emit('canvas', trail);
 	socket.on('canvas', function(trail) {
 		// trail = [ [10,100], [10, 99] .. [10,1], [10,0] ]
 		//http://hacks.mozilla.org/2009/06/pushing-pixels-with-canvas/
