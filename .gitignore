@@ -1,6 +1,7 @@
 .DS_Store
 .elasticbeanstalk
 .idea
+nbproject
 
 node_modules
 app/node_modules
