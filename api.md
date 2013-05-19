@@ -70,7 +70,7 @@ to be decided
 assume start position of the cursor in in the top left corner  
 IN: `texteditor(keys)`  
 OUT: `texteditor(keys)`  
-OUT: `texteditor-failed(reason)` 
+OUT: `texteditor-failed(reason)`  
 Example:
 	
 	// 1. only admin cam emit this event, 2. keystokes passed as ascii codes
