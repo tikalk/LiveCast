@@ -97,22 +97,22 @@ module.exports = function (grunt) {
                 }
             }
         },
-        compass: {
-            options: {
-                sassDir: '<%= c.dev %>/private/stylesheets',
-                cssDir: '<%= c.dev %>/private/.temp/stylesheets',
-                imagesDir: '<%= c.dev %>/private/images',
-                javascriptsDir: '<%= c.dev %>/private/javascripts',
-                fontsDir: '<%= c.dev %>/private/stylesheets/fonts',
-                importPath: '<%= c.dev %>/components',
-                relativeAssets: true
-            },
-            server: {
-                options: {
-                    debugInfo: true
-                }
-            }
-        },
+//        compass: {
+//            options: {
+//                sassDir: '<%= c.dev %>/private/stylesheets',
+//                cssDir: '<%= c.dev %>/private/.temp/stylesheets',
+//                imagesDir: '<%= c.dev %>/private/images',
+//                javascriptsDir: '<%= c.dev %>/private/javascripts',
+//                fontsDir: '<%= c.dev %>/private/stylesheets/fonts',
+//                importPath: '<%= c.dev %>/components',
+//                relativeAssets: true
+//            },
+//            server: {
+//                options: {
+//                    debugInfo: true
+//                }
+//            }
+//        },
         concat: {
             options: {
                 separator: ''
@@ -190,10 +190,10 @@ module.exports = function (grunt) {
                 files: ['<%= c.dev %>/private/*.{ico,txt,html}'],
                 tasks: ['copy:server']
             },
-            compass: {
-                files: ['<%= c.dev %>/private/stylesheets/**/*.{scss,sass}'],
-                tasks: ['compass']
-            },
+            //compass: {
+            //     files: ['<%= c.dev %>/private/stylesheets/**/*.{scss,sass}'],
+            //    tasks: ['compass']
+            //},
             coffee: {
                 files: ['<%= c.dev %>/private/javascripts/**/*.coffee'],
                 tasks: ['coffee']
@@ -231,7 +231,7 @@ module.exports = function (grunt) {
         'connect:livereload',
         'clean:server',
         'coffee:server',
-        'compass:server',
+        //'compass:server',
         'copy:server',
         'concat:css',
         'concat:js',
