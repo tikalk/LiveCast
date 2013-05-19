@@ -27,19 +27,76 @@ app.configure('development', function () {
     app.use(express.errorHandler());
 });
 
-var adminName, users = [];
-socketsManager.init(server, function(socket, emit) {
-	socket.on('connect-user', function(userName, room) {
+// Shachar: this method will work fine, until users opens another browser,
+// TODO: implement handshake
+var adminName, users = [], socketByUserName = {}, userNameBySocket = {};
+socketsManager.init(server, function(socket, lectureEmit) {
+	socket.on('connect-user', function(userName) {
 		room = room || '';
 		var isAdmin  = !users.length; // you admin if the room is empty
 		adminName = isAdmin ? userName : adminName;
+		
+		var pos = users.indexOf(userName);
+		if (pos !== -1) {
+			socket.emit('join-failed', 'nickname exists');
+			return;
+		}
+		
+		// it's not duplicate! object literal cant assure the order of elements this why i'm using array of 
+		// user to keep the order, pos 0 is the admin
 		users.push(userName);
-		socket.join('Lecture:' + room);
-		emit(null, 'joined', isAdmin);
+		socketByUserName[userName] = socket.id;
+		userNameBySocket[socket.id] = userName;
+		socket.join('Lecture');
+		socket.emit('joined', isAdmin);
 	});
 
-	socket.on('disconnect', function() {
+	socket.on('users-list', function() {
+		usersList();
 	});
+	
+	socket.on('chat-message', function(msg) {
+		msg.userName = userNameBySocket[socket.id];
+		msg.datetime = (new Date()).format('YmdHi');
+		lectureEmit('chat-message', msg);
+	});
+	
+	socket.on('texteditor', function(keys) {
+		if (users.indexOf(userNameBySocket[socket.id]) !== 0) {
+			socket.emit('texteditor-failed', 'not admin');
+			return;
+		}
+		
+		lectureEmit('texteditor', keys);
+	});
+	
+	socket.on('canvas', function(trail) {
+		if (users.indexOf(userNameBySocket[socket.id]) !== 0) {
+			socket.emit('canvas-failed', 'not admin');
+			return;
+		}
+		
+		lectureEmit('canvas', trail);
+	});
+	
+	socket.on('disconnect', function() {
+		var userName = userNameBySocket[socket.id];
+		delete userNameBySocket[socket.id];
+		delete socketByUserName[userName];
+		
+		var pos = users.indexOf(userName);
+		users.splice(pos,1);
+		if (pos === 0) {
+			lectureEmit('end', 'admin left');
+			return;
+		}
+		
+		usersList();
+	});
+	
+	function usersList() {
+		lectureEmit('uses-list', users);
+	}
 });
 
 app.get('/', routes.index);

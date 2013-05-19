@@ -36,7 +36,6 @@ socketsManager.init = function(server, cb) {
 	});
 };
 
-var emit = socketsManager.emit = function(room, event, data) {
-	room = room || '';
-	io.sockets.in('Lecture:' + room).emit(event, data);
+var emit = socketsManager.emit = function(event, data) {
+	io.sockets.in('Lecture').emit(event, data);
 };
