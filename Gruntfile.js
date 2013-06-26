@@ -46,11 +46,11 @@ module.exports = function (grunt) {
 
     nodeProcess.on('exit', function(code) {
         if (code > 0) {
-            grunt.log.error(f('Exited with code: %d.', code));
+            grunt.log.error('Exited with code: '+code);
             return ;
         }
 
-        verbose.ok(f('Exited with code: %d.', code));
+        verbose.ok('Exited with code: '+code);
     });
 
     // Project configuration.
@@ -93,17 +93,17 @@ module.exports = function (grunt) {
         coffee: {
             server: {
                 files: {
-                    '<%= c.dev %>/private/.temp/javascripts/coffee.js': '<%= c.dev %>/private/javascripts/**/*.coffee'
+                    '<%= c.dev %>/private/.temp/js/coffee.js': '<%= c.dev %>/private/js/**/*.coffee'
                 }
             }
         },
         compass: {
             options: {
-                sassDir: '<%= c.dev %>/private/stylesheets',
-                cssDir: '<%= c.dev %>/private/.temp/stylesheets',
-                imagesDir: '<%= c.dev %>/private/images',
-                javascriptsDir: '<%= c.dev %>/private/javascripts',
-                fontsDir: '<%= c.dev %>/private/stylesheets/fonts',
+                sassDir: '<%= c.dev %>/private/css',
+                cssDir: '<%= c.dev %>/private/.temp/css',
+                imagesDir: '<%= c.dev %>/private/img',
+                javascriptsDir: '<%= c.dev %>/private/js',
+                fontsDir: '<%= c.dev %>/private/css/fonts',
                 importPath: '<%= c.dev %>/components',
                 relativeAssets: true
             },
@@ -118,18 +118,18 @@ module.exports = function (grunt) {
                 separator: ''
             },
             js: {
-                src: ['<%= c.dev %>/private/.temp/javascripts/*.js'],
-                dest: '<%= c.dev %>/public/javascripts/main.js'
+                src: ['<%= c.dev %>/private/.temp/js/*.js'],
+                dest: '<%= c.dev %>/public/js/main.js'
             },
             css: {
-                src: ['<%= c.dev %>/private/.temp/stylesheets/*.css'],
-                dest: '<%= c.dev %>/public/stylesheets/style.css'
+                src: ['<%= c.dev %>/private/.temp/css/*.css'],
+                dest: '<%= c.dev %>/public/css/style.css'
             }
         },
         cssmin: {
             server: {
                 files: {
-                    '<%= c.dev %>/public/stylesheets/style.css': ['<%= c.dev %>/private/.temp/stylesheets/*.css']
+                    '<%= c.dev %>/public/css/style.css': ['<%= c.dev %>/private/.temp/css/*.css']
                 }
             }
         },
@@ -154,18 +154,34 @@ module.exports = function (grunt) {
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/javascripts/',
-                    dest: '<%= c.dev %>/private/.temp/javascripts/',
+                    cwd: '<%= c.dev %>/private/js/',
+                    dest: '<%= c.dev %>/private/.temp/js/',
                     src: [
                         '*.js'
                     ]
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/stylesheets/',
-                    dest: '<%= c.dev %>/private/.temp/stylesheets/',
+                    cwd: '<%= c.dev %>/private/css/',
+                    dest: '<%= c.dev %>/private/.temp/css/',
                     src: [
                         '*.css'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= c.dev %>/private/lib/',
+                    dest: '<%= c.dev %>/public/lib/',
+                    src: [
+                        '**/*.js'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= c.dev %>/private/',
+                    dest: '<%= c.dev %>/public/',
+                    src: [
+                        '**/*.{ico,txt,html}'
                     ]
                 }]
             },
@@ -173,10 +189,10 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>',
+                    cwd: '<%= c.dev %>/private/',
                     dest: '<%= c.dist %>',
                     src: [
-                        '*.{ico,txt,html}'
+                        '**/*.{ico,txt,html}'
                     ]
                 }]
             }
@@ -191,24 +207,24 @@ module.exports = function (grunt) {
                 tasks: ['copy:server']
             },
             compass: {
-                files: ['<%= c.dev %>/private/stylesheets/**/*.{scss,sass}'],
+                files: ['<%= c.dev %>/private/css/**/*.{scss,sass}'],
                 tasks: ['compass']
             },
             coffee: {
-                files: ['<%= c.dev %>/private/javascripts/**/*.coffee'],
+                files: ['<%= c.dev %>/private/js/**/*.coffee'],
                 tasks: ['coffee']
             },
             js: {
-                files: ['<%= c.dev %>/private/javascripts/*.js'],
+                files: ['<%= c.dev %>/private/js/*.js'],
                 tasks: ['copy:server']
             },
             livereload: {
                 files: [
                     '<%= c.dev %>/views/*.{jade,ejs,html}',
                     '<%= c.dev %>/private/*.html',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/stylesheets/*.css',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/javascripts/*.js',
-                    '<%= c.dev %>/private/images/*.{png,jpg,jpeg}'
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/css/*.css',
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/js/*.js',
+                    '<%= c.dev %>/private/img/*.{png,jpg,jpeg}'
                 ],
                 tasks: ['concat:css','concat:js','cssmin:server','livereload']
             }
