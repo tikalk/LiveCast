@@ -21,7 +21,8 @@
         }
         return msgs.broadcast('texteditor', context, data);
       };
-      return storage.add('texteditor', context, data, error_cb);
+//      return storage.add('texteditor', context, data, error_cb);
+      error_cb();
     };
     return msgs.listen('texteditor', callback);
   };

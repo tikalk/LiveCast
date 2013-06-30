@@ -35,8 +35,10 @@ module.exports = function(options, imports, register){
         , sessionSockets = new SessionSockets(io, services.sessionStore, services.cookieParser);
 
     sessionSockets.on('connection', function (err, socket, session) {
+        if (err) throw err;
         if (peers.length == 0){
             session.isOwner = true;
+            session.save();
         }
 
         peers.push({
@@ -76,7 +78,10 @@ module.exports = function(options, imports, register){
                         if (typeof callee !== 'undefined')
                             callee.emit(evtType,data);
                         else
-                            sessionSockets.emit(evtType, data);
+//                            sessionSockets.emit(evtType, data);
+                            peers.forEach(function(peer){
+                                peer.socket.emit(evtType, data);
+                            });
                     } else {
                         throw "Missing message context: " + context;
                     }
