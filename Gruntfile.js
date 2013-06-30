@@ -97,22 +97,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        compass: {
-            options: {
-                sassDir: '<%= c.dev %>/private/css',
-                cssDir: '<%= c.dev %>/private/.temp/css',
-                imagesDir: '<%= c.dev %>/private/img',
-                javascriptsDir: '<%= c.dev %>/private/js',
-                fontsDir: '<%= c.dev %>/private/css/fonts',
-                importPath: '<%= c.dev %>/components',
-                relativeAssets: true
-            },
-            server: {
-                options: {
-                    debugInfo: true
-                }
-            }
-        },
         concat: {
             options: {
                 separator: ''
@@ -206,10 +190,6 @@ module.exports = function (grunt) {
                 files: ['<%= c.dev %>/private/*.{ico,txt,html}'],
                 tasks: ['copy:server']
             },
-            compass: {
-                files: ['<%= c.dev %>/private/css/**/*.{scss,sass}'],
-                tasks: ['compass']
-            },
             coffee: {
                 files: ['<%= c.dev %>/private/js/**/*.coffee'],
                 tasks: ['coffee']
@@ -232,6 +212,18 @@ module.exports = function (grunt) {
         clean: {
             dist: ['<%= c.dev %>/private/.temp', '<%= c.dist %>/*'],
             server: '<%= c.dev %>/private/.temp'
+        },
+        "jasmine-node": {
+            options: {
+                coffee: true
+            },
+            run: {
+                spec: "tests/spec/"
+            },
+            env: {
+                NODE_PATH: "lib/js"
+            },
+            executable: './node_modules/.bin/jasmine-node'
         }
     });
 
@@ -241,17 +233,28 @@ module.exports = function (grunt) {
     // remove when mincss task is renamed
     grunt.renameTask('mincss', 'cssmin');
 
+	grunt.registerTask('build', [
+		'configureProxies',
+		'clean:server',
+		'coffee:server',
+		'copy:server',
+		'concat:css',
+		'concat:js',
+        'jasmine-node',
+        'cssmin:server'
+	]);
+	
     grunt.registerTask('default', [
         'configureProxies',
         'livereload-start',
         'connect:livereload',
         'clean:server',
         'coffee:server',
-        'compass:server',
         'copy:server',
         'concat:css',
         'concat:js',
         'cssmin:server',
+        'jasmine-node',
         'open',
         'watch']);
 

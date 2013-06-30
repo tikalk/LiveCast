@@ -12,5 +12,6 @@ module.exports = [
         port: process.env.PORT || 3000
     },
     "./plugins/real-time",
+//    "./plugins/messages",
     "./plugins/texteditor"
 ];
