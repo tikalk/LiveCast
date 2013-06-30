@@ -2,7 +2,7 @@
   "name": "livecast",
   "version": "0.0.1",
   "dependencies": {
-	"angular-ui-codemirror": "latest"
+	   "angular-ui-ace": "latest"
 	},
   "ignore": [
     "**/.*",
