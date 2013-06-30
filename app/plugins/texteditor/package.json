@@ -1,0 +1,11 @@
+{
+    "name": "texteditor",
+    "version": "0.0.1",
+    "main": "texteditor.coffee",
+    "private": true,
+    
+    "plugin": {
+        "consumes": [],
+        "provides": ["texteditor"]
+    }
+}
