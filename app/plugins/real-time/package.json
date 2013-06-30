@@ -1,0 +1,11 @@
+{
+    "name": "real-time",
+    "version": "0.0.1",
+    "main": "real-time.js",
+    "private": true,
+
+    "plugin": {
+        "consumes": ["connectionServices"],
+        "provides": []
+    }
+}
