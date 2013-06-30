@@ -125,7 +125,7 @@ module.exports = function (grunt) {
                     cwd: '<%= c.dev %>/private',
                     dest: '<%= c.dev %>/public',
                     src: [
-                        '*.{ico,txt,html}'
+                        '**/*.{ico,txt,html}'
                     ]
                 },{
                     expand: true,
@@ -154,18 +154,10 @@ module.exports = function (grunt) {
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/lib/',
-                    dest: '<%= c.dev %>/public/lib/',
+                    cwd: '<%= c.dev %>/private/components/',
+                    dest: '<%= c.dev %>/public/components/',
                     src: [
                         '**/*.js'
-                    ]
-                },{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= c.dev %>/private/',
-                    dest: '<%= c.dev %>/public/',
-                    src: [
-                        '**/*.{ico,txt,html}'
                     ]
                 }]
             },
@@ -187,7 +179,7 @@ module.exports = function (grunt) {
                 tasks: ['livereload']
             },
             html: {
-                files: ['<%= c.dev %>/private/*.{ico,txt,html}'],
+                files: ['<%= c.dev %>/private/**/*.{ico,txt,html}'],
                 tasks: ['copy:server']
             },
             coffee: {
@@ -195,18 +187,18 @@ module.exports = function (grunt) {
                 tasks: ['coffee']
             },
             js: {
-                files: ['<%= c.dev %>/private/js/*.js'],
+                files: ['<%= c.dev %>/private/js/**/*.js'],
                 tasks: ['copy:server']
             },
             livereload: {
                 files: [
                     '<%= c.dev %>/views/*.{jade,ejs,html}',
-                    '<%= c.dev %>/private/*.html',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/css/*.css',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/js/*.js',
+                    '<%= c.dev %>/public/**/*.html',
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/css/**/*.css',
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/js/**/*.js',
                     '<%= c.dev %>/private/img/*.{png,jpg,jpeg}'
                 ],
-                tasks: ['concat:css','concat:js','cssmin:server','livereload']
+                tasks: ['concat:css','concat:js','cssmin:server','watch:livereload']
             }
         },
         clean: {
@@ -218,12 +210,12 @@ module.exports = function (grunt) {
                 coffee: true
             },
             run: {
-                spec: "tests/spec/"
+                spec: path.join("tests","spec")
             },
             env: {
                 NODE_PATH: "lib/js"
             },
-            executable: './node_modules/.bin/jasmine-node'
+            executable: path.join('node_modules','.bin','jasmine-node')
         }
     });
 
@@ -240,7 +232,6 @@ module.exports = function (grunt) {
 		'copy:server',
 		'concat:css',
 		'concat:js',
-        'jasmine-node',
         'cssmin:server'
 	]);
 	

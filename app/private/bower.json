@@ -1,0 +1,12 @@
+{
+  "name": "livecast",
+  "version": "0.0.1",
+  "dependencies": {
+	   "angular-ui-ace": "latest"
+	},
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
