@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
+angular.module('myApp')
 
 
 .controller('mainCtrl', ["$scope", function($scope) {

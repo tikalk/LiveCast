@@ -97,12 +97,31 @@ module.exports = function (grunt) {
                 }
             }
         },
+        compass: {
+            options: {
+                sassDir: '<%= c.dev %>/private/css',
+                cssDir: '<%= c.dev %>/private/.temp/css',
+                imagesDir: '<%= c.dev %>/private/img',
+                javascriptsDir: '<%= c.dev %>/private/js',
+                fontsDir: '<%= c.dev %>/private/css/fonts',
+                importPath: '<%= c.dev %>/components',
+                relativeAssets: true
+            },
+            server: {
+                options: {
+                    debugInfo: true
+                }
+            }
+        },
         concat: {
             options: {
                 separator: ''
             },
             js: {
-                src: ['<%= c.dev %>/private/.temp/js/*.js'],
+                src: [
+                '<%= c.dev %>/private/.temp/js/*.mdl.js',
+                '<%= c.dev %>/private/.temp/js/**/*.js'
+                ],
                 dest: '<%= c.dev %>/public/js/main.js'
             },
             css: {
@@ -125,7 +144,7 @@ module.exports = function (grunt) {
                     cwd: '<%= c.dev %>/private',
                     dest: '<%= c.dev %>/public',
                     src: [
-                        '**/*.{ico,txt,html}'
+                        '*.{ico,txt,html}'
                     ]
                 },{
                     expand: true,
@@ -141,7 +160,7 @@ module.exports = function (grunt) {
                     cwd: '<%= c.dev %>/private/js/',
                     dest: '<%= c.dev %>/private/.temp/js/',
                     src: [
-                        '*.js'
+                        '**/*.js'
                     ]
                 },{
                     expand: true,
@@ -158,6 +177,14 @@ module.exports = function (grunt) {
                     dest: '<%= c.dev %>/public/components/',
                     src: [
                         '**/*.js'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= c.dev %>/private/',
+                    dest: '<%= c.dev %>/public/',
+                    src: [
+                        '**/*.{ico,txt,html}'
                     ]
                 }]
             },
@@ -182,40 +209,32 @@ module.exports = function (grunt) {
                 files: ['<%= c.dev %>/private/**/*.{ico,txt,html}'],
                 tasks: ['copy:server']
             },
+            compass: {
+                files: ['<%= c.dev %>/private/css/**/*.{scss,sass}'],
+                tasks: ['compass']
+            },
             coffee: {
                 files: ['<%= c.dev %>/private/js/**/*.coffee'],
                 tasks: ['coffee']
             },
             js: {
-                files: ['<%= c.dev %>/private/js/**/*.js'],
+                files: ['<%= c.dev %>/private/js/*.js'],
                 tasks: ['copy:server']
             },
             livereload: {
                 files: [
                     '<%= c.dev %>/views/*.{jade,ejs,html}',
-                    '<%= c.dev %>/public/**/*.html',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/css/**/*.css',
-                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/js/**/*.js',
+                    '<%= c.dev %>/private/*.html',
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/css/*.css',
+                    '{<%= c.dev %>/private/.temp,<%= c.dev %>/private}/js/*.js',
                     '<%= c.dev %>/private/img/*.{png,jpg,jpeg}'
                 ],
-                tasks: ['concat:css','concat:js','cssmin:server','watch:livereload']
+                tasks: ['concat:css','concat:js','cssmin:server','livereload']
             }
         },
         clean: {
             dist: ['<%= c.dev %>/private/.temp', '<%= c.dist %>/*'],
             server: '<%= c.dev %>/private/.temp'
-        },
-        "jasmine-node": {
-            options: {
-                coffee: true
-            },
-            run: {
-                spec: path.join("tests","spec")
-            },
-            env: {
-                NODE_PATH: "lib/js"
-            },
-            executable: path.join('node_modules','.bin','jasmine-node')
         }
     });
 
@@ -225,27 +244,17 @@ module.exports = function (grunt) {
     // remove when mincss task is renamed
     grunt.renameTask('mincss', 'cssmin');
 
-	grunt.registerTask('build', [
-		'configureProxies',
-		'clean:server',
-		'coffee:server',
-		'copy:server',
-		'concat:css',
-		'concat:js',
-        'cssmin:server'
-	]);
-	
     grunt.registerTask('default', [
         'configureProxies',
         'livereload-start',
         'connect:livereload',
         'clean:server',
         'coffee:server',
+        // 'compass:server',
         'copy:server',
         'concat:css',
         'concat:js',
         'cssmin:server',
-        'jasmine-node',
         'open',
         'watch']);
 
