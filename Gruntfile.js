@@ -212,6 +212,18 @@ module.exports = function (grunt) {
         clean: {
             dist: ['<%= c.dev %>/private/.temp', '<%= c.dist %>/*'],
             server: '<%= c.dev %>/private/.temp'
+        },
+        "jasmine-node": {
+            options: {
+                coffee: true
+            },
+            run: {
+                spec: "tests/spec/"
+            },
+            env: {
+                NODE_PATH: "lib/js"
+            },
+            executable: './node_modules/.bin/jasmine-node'
         }
     });
 
@@ -228,7 +240,8 @@ module.exports = function (grunt) {
 		'copy:server',
 		'concat:css',
 		'concat:js',
-		'cssmin:server'
+        'jasmine-node',
+        'cssmin:server'
 	]);
 	
     grunt.registerTask('default', [
@@ -241,6 +254,7 @@ module.exports = function (grunt) {
         'concat:css',
         'concat:js',
         'cssmin:server',
+        'jasmine-node',
         'open',
         'watch']);
 
