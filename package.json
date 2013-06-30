@@ -56,6 +56,7 @@
     "express"
   ],
   "dependencies": {
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "redis": "~0.8.4"
   }
 }
