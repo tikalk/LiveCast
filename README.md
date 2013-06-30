@@ -3,6 +3,9 @@ LiveCast
 
 Tikal's Fuseday JS Session Concept - a live screencast system for remote
 
+[DEMO](http://livecast-8208.onmodulus.net/#/main)
+
+
 Major changes
 =============
 Old project sources were moved to master-old branch.
