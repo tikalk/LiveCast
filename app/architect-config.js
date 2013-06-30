@@ -16,6 +16,6 @@ module.exports = [
         packagePath: "./plugins/messages",
         "socket.io": require('socket.io'),
         "session.socket.io": require('session.socket.io')
-    }
-
+    },
+    "./plugins/texteditor"
 ];
