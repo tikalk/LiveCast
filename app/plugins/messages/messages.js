@@ -73,14 +73,15 @@ module.exports = function(options, imports, register){
                     });
                     arr.push(callback);
                 },
-                broadcast: function(evtType, context, data, callee){
+                broadcast: function(evtType, context, data, callee, excludes){
                     if (context === "defaultRoom"){
-                        if (typeof callee !== 'undefined')
+                        if (typeof callee !== 'undefined' && callee != null)
                             callee.emit(evtType,data);
                         else
 //                            sessionSockets.emit(evtType, data);
                             peers.forEach(function(peer){
-                                peer.socket.emit(evtType, data);
+                                if (excludes.indexOf(peer) == -1)
+                                    peer.socket.emit(evtType, data);
                             });
                     } else {
                         throw "Missing message context: " + context;

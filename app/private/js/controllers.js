@@ -9,14 +9,14 @@ angular.module('myApp')
 
   	$scope.editorContent = "Stam";
 
-  	// $scope.$watch("editorContent", function(newValue, oldValue){
-  	// 	if (!newValue) newValue = "";
-  	// 	if (newValue !== oldValue){
+  	$scope.$watch("editorContent", function(newValue, oldValue){
+  		if (!newValue) newValue = "";
+  		if (newValue !== oldValue){
 
-  	// 		$scope.save();
-  	// 	}
-  	// })
-  	// if (!appState.user.isAdmin){
+  			$scope.save();
+  		}
+  	})
+//  	if (!appState.user.isAdmin){
   		ApiService.subscribe("texteditor", function(data){
 	  		console.log(data)
 	  		if (data !== $scope.editorContent){
