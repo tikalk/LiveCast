@@ -9,5 +9,5 @@ angular.module('myApp', ['ui.ace'])
     $routeProvider.when('/', {templateUrl: 'partials/welcome.html', controller: 'WelcomeController'});
     $routeProvider.when('/room', {templateUrl: 'partials/room.html', controller: 'MainController'});
 
-    // $routeProvider.otherwise({redirectTo: '/main'});
+    $routeProvider.otherwise({redirectTo: '/'});
   }]);
