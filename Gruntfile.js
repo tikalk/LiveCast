@@ -240,7 +240,6 @@ module.exports = function (grunt) {
 		'copy:server',
 		'concat:css',
 		'concat:js',
-        'jasmine-node',
         'cssmin:server'
 	]);
 	
