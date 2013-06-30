@@ -203,7 +203,7 @@ module.exports = function (grunt) {
                 tasks: ['livereload']
             },
             html: {
-                files: ['<%= c.dev %>/private/*.{ico,txt,html}'],
+                files: ['<%= c.dev %>/private/**/*.{ico,txt,html}'],
                 tasks: ['copy:server']
             },
             compass: {
@@ -247,7 +247,7 @@ module.exports = function (grunt) {
         'connect:livereload',
         'clean:server',
         'coffee:server',
-        'compass:server',
+        // 'compass:server',
         'copy:server',
         'concat:css',
         'concat:js',

@@ -28,3 +28,15 @@
   content: "";
   padding: 0;
 }
+
+html, body {
+  height: 100%;
+}
+/* welcome */
+#welcome {
+  text-align: center;
+  height: 100%;
+}
+#welcome > img {
+  width: 20%;
+}
