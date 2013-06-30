@@ -10,6 +10,7 @@ module.exports = function(options, imports, register){
 	
 	
 	message.listen('connect-user', function(context, nickname, caller) {
+		console.log('user=connected');
 		if (!(context in usersPerContext)) {
 			usersPerContext[context][nickname] = caller;
 			return;

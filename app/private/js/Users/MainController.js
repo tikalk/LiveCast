@@ -6,13 +6,9 @@ controller('MainController', [
 			$scope.userProvider.users = users;
 		});
 
-		// APIService.subscribe('joined', function (isAdmin, users, chat, canvas) {
-		// 	if (!isAdmin) {
-		// 		if (users) {
-					
-		// 		}
-		// 	}
-		// });
+		APIService.subscribe('joined', function (isAdmin, users, chat, canvas) {
+			$location.hash("/room");
+		});
 
 		$scope.usersProvider = {
 			getUsers:  function() {
