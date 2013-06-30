@@ -221,6 +221,16 @@ module.exports = function (grunt) {
     // remove when mincss task is renamed
     grunt.renameTask('mincss', 'cssmin');
 
+	grunt.registerTask('build', [
+		'configureProxies',
+		'clean:server',
+		'coffee:server',
+		'copy:server',
+		'concat:css',
+		'concat:js',
+		'cssmin:server'
+	]);
+	
     grunt.registerTask('default', [
         'configureProxies',
         'livereload-start',
