@@ -11,5 +11,6 @@ module.exports = [
         rootDir: __dirname + "/",
         port: process.env.PORT || 3000
     },
-    "./plugins/real-time"
+    "./plugins/real-time",
+    "./plugins/messages"
 ];
