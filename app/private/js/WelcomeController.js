@@ -1,16 +1,15 @@
-angular.module('myApp.controllers', []).
-controller('WelcomeController', [
-	function($scope, APIService) {
+angular.module('myApp').
+controller('WelcomeController', function($scope, ApiService) {
 		// listen to events
-		APIService.subscribe('users-list', function (users) {
+		ApiService.subscribe('users-list', function (users) {
 			$scope.userProvider.users = users;
 		});
 
 		$scope.login = function () {
-			APIService.emit('connect-user', $scope.name);
+			ApiService.emit('connect-user', $scope.name);
 		};
 
 
 
 	}
-]);
+);

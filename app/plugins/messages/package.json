@@ -1,0 +1,11 @@
+{
+    "name": "messages",
+    "version": "0.0.1",
+    "main": "messages.js",
+    "private": true,
+
+    "plugin": {
+        "consumes": ["connectionServices"],
+        "provides": ["messages"]
+    }
+}

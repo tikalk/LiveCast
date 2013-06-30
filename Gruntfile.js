@@ -118,7 +118,10 @@ module.exports = function (grunt) {
                 separator: ''
             },
             js: {
-                src: ['<%= c.dev %>/private/.temp/js/*.js'],
+                src: [
+                '<%= c.dev %>/private/.temp/js/*.mdl.js',
+                '<%= c.dev %>/private/.temp/js/**/*.js'
+                ],
                 dest: '<%= c.dev %>/public/js/main.js'
             },
             css: {
@@ -157,7 +160,7 @@ module.exports = function (grunt) {
                     cwd: '<%= c.dev %>/private/js/',
                     dest: '<%= c.dev %>/private/.temp/js/',
                     src: [
-                        '*.js'
+                        '**/*.js'
                     ]
                 },{
                     expand: true,
@@ -170,8 +173,8 @@ module.exports = function (grunt) {
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/lib/',
-                    dest: '<%= c.dev %>/public/lib/',
+                    cwd: '<%= c.dev %>/private/components/',
+                    dest: '<%= c.dev %>/public/components/',
                     src: [
                         '**/*.js'
                     ]

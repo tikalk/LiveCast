@@ -4,21 +4,23 @@
     <title><%=title%></title>
     <link href="css/style.css" rel="stylesheet">
 
-
 </head>
 <body>
+
     <div id="welcome" class="hero-unit">
         <img src="img/New_Tikal_Logo.png">
         <h1>Welcome to <%=title%></h1>
         <div ng-view></div>
     </div>
+   
 
 
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="components/angular/angular.js"></script>
+    <script src="components/angular-ui-ace/ui-ace.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-
-    <script src="lib/angular/angular.js"></script>
+    
 
     <script src="js/main.js"></script>
     <script src='/socket.io/socket.io.js'></script>

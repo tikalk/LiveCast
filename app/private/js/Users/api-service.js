@@ -1,5 +1,5 @@
-angular.module('myApp.services', []).
-factory("APIService", function() {
+angular.module('myApp').
+factory("ApiService", function() {
 	// initialize socket service
 	var socket = io.connect();
 

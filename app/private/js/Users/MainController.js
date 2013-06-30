@@ -1,8 +1,8 @@
-angular.module('myApp.controllers', []).
+angular.module('myApp').
 controller('MainController', [
-	function($scope, APIService) {
+	function($scope, ApiService) {
 		// listen to events
-		APIService.subscribe('users-list', function (users) {
+		ApiService.subscribe('users-list', function (users) {
 			$scope.userProvider.users = users;
 		});
 
@@ -16,7 +16,7 @@ controller('MainController', [
 
 		$scope.usersProvider = {
 			getUsers:  function() {
-				return APIService.emit('users-list');
+				return ApiService.emit('users-list');
 			}
 		};
 
