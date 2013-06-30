@@ -186,7 +186,7 @@ module.exports = function (grunt) {
                     src: [
                         '**/*.{ico,txt,html}'
                     ]
-                }]
+                }
             },
             dist: {
                 files: [{
