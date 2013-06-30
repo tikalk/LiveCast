@@ -1,8 +1,9 @@
 module.exports = (options, imports, register) ->
     msgs = imports.messages
     storage = imports.storage
+    return unless msgs? and storage?
     content = {}
-        
+
     callback = (context, data, caller) ->
         if not caller.isOwner
             console.log "invalid caller for modifying 

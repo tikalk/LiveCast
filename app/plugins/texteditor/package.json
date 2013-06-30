@@ -1,7 +1,7 @@
 {
     "name": "texteditor",
     "version": "0.0.1",
-    "main": "texteditor.coffee",
+    "main": "texteditor.js",
     "private": true,
     
     "plugin": {
