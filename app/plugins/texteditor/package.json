@@ -1,0 +1,11 @@
+{
+    "name": "texteditor",
+    "version": "0.0.1",
+    "main": "texteditor.js",
+    "private": true,
+    
+    "plugin": {
+        "consumes": ["messages", "storage"],
+        "provides": ["texteditor"]
+    }
+}
