@@ -218,12 +218,12 @@ module.exports = function (grunt) {
                 coffee: true
             },
             run: {
-                spec: "tests/spec/"
+                spec: path.join("tests","spec")
             },
             env: {
                 NODE_PATH: "lib/js"
             },
-            executable: './node_modules/.bin/jasmine-node'
+            executable: path.join('node_modules','.bin','jasmine-node')
         }
     });
 
