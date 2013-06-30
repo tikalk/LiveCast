@@ -17,5 +17,6 @@ module.exports = [
         "socket.io": require('socket.io'),
         "session.socket.io": require('session.socket.io')
     },
+    "./plugins/storage",
     "./plugins/texteditor"
 ];
