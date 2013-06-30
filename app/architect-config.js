@@ -11,6 +11,11 @@ module.exports = [
         rootDir: __dirname + "/",
         port: process.env.PORT || 3000
     },
-    "./plugins/real-time"
-//    "./plugins/messages"
+    "./plugins/real-time",
+    {
+        packagePath: "./plugins/messages",
+        "socket.io": require('socket.io'),
+        "session.socket.io": require('session.socket.io')
+    }
+
 ];
