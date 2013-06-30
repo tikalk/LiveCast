@@ -19,7 +19,7 @@
         if (error != null) {
           console.log("error storing texteditor: " + error);
         }
-        return msgs.broadcast('texteditor', context, data, caller);
+        return msgs.broadcast('texteditor', context, data);
       };
       return storage.add('texteditor', context, data, error_cb);
     };

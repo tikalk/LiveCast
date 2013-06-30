@@ -12,7 +12,7 @@ module.exports = (options, imports, register) ->
         content[context] = data
         error_cb = (error, timestamp) ->
             console.log "error storing texteditor: #{error}" if error?
-            msgs.broadcast 'texteditor', context, data, caller
+            msgs.broadcast 'texteditor', context, data
         storage.add 'texteditor', context, data, error_cb
     
     msgs.listen 'texteditor', callback
