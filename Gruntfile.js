@@ -159,6 +159,14 @@ module.exports = function (grunt) {
                     src: [
                         '**/*.js'
                     ]
+                },{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= c.dev %>/private/lib/',
+                    dest: '<%= c.dev %>/public/lib/',
+                    src: [
+                        '**/*.js'
+                    ]
                 }]
             },
             dist: {
