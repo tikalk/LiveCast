@@ -154,8 +154,8 @@ module.exports = function (grunt) {
                 },{
                     expand: true,
                     dot: true,
-                    cwd: '<%= c.dev %>/private/lib/',
-                    dest: '<%= c.dev %>/public/lib/',
+                    cwd: '<%= c.dev %>/private/components/',
+                    dest: '<%= c.dev %>/public/components/',
                     src: [
                         '**/*.js'
                     ]
